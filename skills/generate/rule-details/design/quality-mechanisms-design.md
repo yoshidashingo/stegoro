@@ -1,7 +1,7 @@
 # Quality Mechanisms Design — DESIGN Phase
 
 ## Purpose
-Design the quality assurance mechanisms that will be embedded in the target agent's steering policy set. These mechanisms ensure the target agent maintains consistent quality throughout its operation, mapped to the 11 quality dimensions from AI-DLC.
+Design the quality assurance mechanisms that will be embedded in the target agent's steering policy set. These mechanisms ensure the target agent maintains consistent quality throughout its operation, mapped to the 15 quality dimensions (11 AI-DLC standard + 4 domain-specific).
 
 ## Prerequisites
 - All DISCOVERY phase artifacts available and approved
@@ -186,8 +186,8 @@ For each error category:
 [Next steps for the user]
 ```
 
-### Step 9: Map to AI-DLC 11 Quality Dimensions
-**Action**: Verify all 11 quality dimensions are covered in the design
+### Step 9: Map to 15 Quality Dimensions
+**Action**: Verify all 15 quality dimensions are covered in the design
 **Input**: All quality mechanism designs
 **Output**: Quality dimension coverage map
 
@@ -202,10 +202,14 @@ For each error category:
 | 7. Overconfidence Prevention | Prevention Measures | Step 5 above |
 | 8. Depth Levels | Depth Adaptation | Step 7 above |
 | 9. Session Continuity | State Tracking + Session Design | workflow-architecture.md + common-rules-design.md |
-| 10. Terminology | Terminology Glossary Design | common-rules-design.md |
-| 11. Completion Messages | Message System Design | Step 8 above |
+| 10. Terminology Standardization | Terminology Glossary Design | common-rules-design.md |
+| 11. Standardized Completion Messages | Message System Design | Step 8 above |
+| 12. Domain Specificity Rate | Domain Content Injection + Measurement | phase-rules-design.md (G3) |
+| 13. Example Coverage | GOOD/BAD Example Injection | phase-rules-design.md (G3) |
+| 14. Artifact Template Completeness | Output Template Design | phase-rules-design.md (G2, G3) |
+| 15. Pitfall Reference Rate | Domain Pitfall Integration | phase-rules-design.md (G3) |
 
-**VERIFY**: All 11 dimensions have explicit design coverage. If any dimension lacks coverage, add design specifications before proceeding.
+**VERIFY**: All 15 dimensions have explicit design coverage. If any dimension lacks coverage, add design specifications before proceeding.
 
 ### Step 10: Generate Quality Mechanisms Questions (If Needed)
 **Action**: Create questions about quality design decisions
@@ -235,7 +239,7 @@ For each error category:
 - **Content Validation**: [N] content types covered
 - **Error Categories**: [N] per phase
 - **Depth Levels**: 3 (Minimal/Standard/Comprehensive)
-- **Quality Dimensions Covered**: 11/11
+- **Quality Dimensions Covered**: 15/15
 
 ## Checkpoint System Design
 [Detailed specification]
@@ -270,7 +274,7 @@ For each error category:
 
 **Quality Mechanisms Design is complete.** Here's a summary:
 
-- **Quality Dimensions Covered**: 11/11
+- **Quality Dimensions Covered**: 15/15
 - **Checkpoint System**: 2-level (plan + stage)
 - **Error Categories**: [N] per phase
 - **Content Validation**: [N] content types
@@ -297,7 +301,7 @@ Please choose one of the following:
 - Workflow Architecture: [N] phases, [N] stages designed
 - Common Rules Design: [N] rules with adaptation specs
 - Phase Rules Design: [N] stage files designed
-- Quality Mechanisms Design: 11/11 dimensions covered
+- Quality Mechanisms Design: 15/15 dimensions covered
 
 ### WHAT'S NEXT
 
@@ -308,12 +312,37 @@ The next phase is **GENERATION**: Create the actual steering policy files.
 
 ---
 
+## 15 Quality Dimensions Design Guide
+
+When designing quality mechanisms, plan for 15 dimensions (11 standard + 4 domain-specific):
+
+### Domain-Specific Dimensions Design Template
+
+| # | Dimension | What to Design | Measurement Method | Threshold |
+|---|-----------|---------------|-------------------|-----------|
+| 12 | Domain Specificity Rate | How to measure domain-specific lines per file | Line-level assessment against terminology.md | >= 40% |
+| 13 | Example Coverage | How many examples per file, GOOD/BAD format | Count example blocks per file | >= 2/file |
+| 14 | Artifact Template Completeness | Which files need output templates | Files with templates ÷ files needing templates | = 100% |
+| 15 | Pitfall Reference Rate | How error handling cites domain pitfalls | Error items citing pitfalls ÷ total error items | >= 50% |
+
+### 3-Layer Automated Testing Design
+
+Design automated testing for execution at G4 and P2:
+
+| Layer | G4 (Policy) | P2 (Plugin) |
+|-------|-------------|-------------|
+| Structure | File existence, references, Markdown, flow paths | plugin.json fields, file existence, directory structure |
+| Content | Dim 12-15 pre-validation | Line count ranges (SKILL.md 75-150, etc.) |
+| Smoke | 4-type flow traversal on policy | 4-type flow traversal on plugin |
+
+---
+
 ## Error Handling
 
 ### Quality Dimension Not Covered
-- **Issue**: One or more of the 11 quality dimensions lacks design coverage
+- **Issue**: One or more of the 15 quality dimensions lacks design coverage
 - **Solution**: Add design specifications for the missing dimension
-- **Do Not Proceed**: Until all 11 dimensions have explicit coverage
+- **Do Not Proceed**: Until all 15 dimensions have explicit coverage
 
 ### Design Conflicts Between Dimensions
 - **Issue**: Quality mechanisms conflict with each other (e.g., depth vs efficiency)

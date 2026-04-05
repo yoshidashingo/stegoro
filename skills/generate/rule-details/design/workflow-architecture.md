@@ -287,6 +287,26 @@ Please choose one of the following:
 
 ---
 
+## Repair Judgment Tree Design Guide
+
+When designing the workflow architecture, include a repair judgment tree that maps quality dimension FAILs to return targets:
+
+1. **Classify problem types**: structural, content, design, criteria
+2. **Map each quality dimension** to a problem type and return-to stage
+3. **Define loop control**: max retries (recommended: 3), same-target limit (recommended: 2), escalation conditions
+4. **Design PACKAGING extension** (for Complex agents): include P1→P2 loop with separate counter (max 2)
+
+### Repair Loop Control Design Template
+
+| Rule | Recommended Value | Rationale |
+|------|------------------|-----------|
+| Max retries (total) | 3 | Prevents session length explosion |
+| Same-target limit | 2 | Signals wrong problem classification |
+| Escalation options | Continue / Abort / Rescope | Gives user control |
+| P2→P1 loop | Max 2 (separate counter) | Plugin-specific fixes are bounded |
+
+---
+
 ## Error Handling
 
 ### Architecture Pattern Mismatch

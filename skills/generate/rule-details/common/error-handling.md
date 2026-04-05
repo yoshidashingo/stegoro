@@ -165,6 +165,14 @@
 - **Solution**: Split into multiple focused files, update references
 - **Recovery**: Restructure file list, update core workflow references
 
+#### Domain Content Injection Failure (G3)
+
+**Error**: Domain specificity rate < 40% detected during Phase Rules Generation
+- **Cause**: Insufficient domain content injection, template-heavy generation
+- **Severity**: High
+- **Solution**: Reload Domain Research Summary, execute injection heuristics (Steps 3c-1 through 3c-5), add domain-specific examples and procedures
+- **Do Not Proceed**: To G4 until domain specificity pre-check passes on all flagged files
+
 #### Integration Validation Errors
 
 **Error**: Cross-reference validation fails
@@ -211,6 +219,78 @@
 - **Cause**: Design decisions that undermine quality at scale
 - **Solution**: Return to DESIGN phase, revise the affected design decisions
 - **Recovery**: Regenerate affected files after design revision
+
+---
+
+### PACKAGING Phase Errors
+
+#### Plugin Structure Generation Errors
+
+**Error**: plugin.json required fields missing
+- **Severity**: High
+- **Solution**: Regenerate from template with all required fields (name, version, description, agents, skills, commands)
+- **Recovery**: Re-validate against plugin.json schema
+
+**Error**: SKILL.md exceeds line limit (>150 lines)
+- **Severity**: Medium
+- **Solution**: Trim to core functionality, delegate details to rule-details files
+- **Recovery**: Review against `implementation-knowhow.md` skill design patterns
+
+**Error**: Agent definition inconsistent with core-workflow
+- **Severity**: High
+- **Solution**: Regenerate agent definition using core-workflow.md stage structure as source of truth
+- **Recovery**: Cross-reference all agent responsibilities with workflow stages
+
+**Error**: Smoke test reveals flow break for specific agent type
+- **Severity**: Critical
+- **Solution**: Cross-reference with Integration Validation (G4) results. If policy issue → repair loop to G1/G3. If plugin structure issue → return to P1.
+- **Recovery**: Fix the specific agent type's template or branching logic
+
+#### Migration Errors
+
+**Error**: Source directory changes detected during migration
+- **Severity**: Medium
+- **Solution**: Run diff, present changes to user for manual merge/overwrite decision
+- **Do Not Proceed**: Until user confirms merge strategy
+
+**Error**: Reference path update missed
+- **Severity**: High
+- **Solution**: Grep all files for old path patterns, update all occurrences
+- **Recovery**: Re-validate all cross-references after fix
+
+### Repair Loop Errors
+
+**Error**: Repair loop max retries reached (3 total)
+- **Severity**: Critical
+- **Solution**: Escalate to user with choices: A) Continue, B) Abort (deliver with quality note), C) Rescope
+- **Do Not Proceed**: Until user responds to escalation
+
+**Error**: Same stage targeted for 2nd repair loop
+- **Severity**: High
+- **Solution**: Escalate — suggest the problem classification itself may be wrong. Present alternative repair targets.
+- **Recovery**: User may choose different approach or rescope
+
+### Integration Validation 3-Layer Test Errors
+
+**Error**: Structure test FAIL — missing files or broken references
+- **Severity**: Critical
+- **Solution**: Return to G1 (Core Workflow Generation) to fix structural issues
+- **Recovery**: Regenerate missing files, fix broken references
+
+**Error**: Content test FAIL — domain specificity rate < 40%
+- **Severity**: High
+- **Solution**: Return to G3 (Phase Rules Generation) for domain content injection
+- **Recovery**: Load Domain Research Summary, inject additional domain-specific content
+
+**Error**: Content test FAIL — examples < 2 per file
+- **Severity**: Medium
+- **Solution**: Return to G3 to add GOOD/BAD examples from Domain Research
+- **Recovery**: Derive examples from best practices and pitfalls in domain-research-summary
+
+**Error**: Smoke test FAIL — unreachable stages
+- **Severity**: Critical
+- **Solution**: Return to G1 to fix workflow flow connectivity
+- **Recovery**: Trace full flow path, identify and fix disconnected stages
 
 ---
 

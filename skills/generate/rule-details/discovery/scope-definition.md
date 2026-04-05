@@ -220,12 +220,20 @@ Create `steering-docs/discovery/scope-definition-questions.md` if:
 - [Future Consideration 1]: [When to add]
 
 ## Estimated Structure
-- **Phases**: [N]
+- **Phases**: [N] (including PACKAGING phase for Complex agents)
 - **Total Stages**: [N] (ALWAYS: [N], CONDITIONAL: [N])
-- **Common Rule Files**: [N] (standard: 10, domain-specific: [N])
-- **Phase Rule Files**: [N]
+- **Common Rule Files**: [N] (standard: 10, domain-specific: [N], + implementation-knowhow)
+- **Phase Rule Files**: [N] (including packaging/ for PACKAGING phase)
+- **Plugin Files**: [N] (agents, skills, commands, plugin config — if PACKAGING included)
 - **Total Files**: [N]
 - **Estimated Total Lines**: [N]
+
+### Baseline Measurement (Brush-Up Only)
+For existing policy improvements, measure actual file sizes before estimating:
+```bash
+wc -l <existing-directory>/**/*.md
+```
+Use measured values (not estimates) for current line counts. Calculate improvement delta per file.
 
 ## Preliminary Phase Structure
 ### Phase 1: [Name]
@@ -239,7 +247,7 @@ Create `steering-docs/discovery/scope-definition-questions.md` if:
 
 ## Quality Target
 - **Level**: [Basic / Standard / Premium]
-- **11 Dimensions Target**: [N/11 PASS]
+- **15 Dimensions Target**: [N/15 PASS] (11 AI-DLC standard + 4 domain-specific)
 - **Key Quality Focus Areas**: [List]
 
 ## Directory Structure

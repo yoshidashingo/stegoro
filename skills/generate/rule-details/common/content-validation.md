@@ -29,16 +29,16 @@ Validation of the final policy files generated for the target agent. This level 
 ### ASCII Diagram Pattern
 
 ```
-+------------------+     +------------------+
-|   Phase 1        |---->|   Phase 2        |
-|   DISCOVERY      |     |   DESIGN         |
-+------------------+     +------------------+
-         |                         |
-         v                         v
-+------------------+     +------------------+
-|   Phase 3        |---->|   Phase 4        |
-|   GENERATION     |     |   REFINEMENT     |
-+------------------+     +------------------+
++------------------+     +------------------+     +------------------+
+|   Phase 1        |---->|   Phase 2        |---->|   Phase 3        |
+|   DISCOVERY      |     |   DESIGN         |     |   GENERATION     |
++------------------+     +------------------+     +------------------+
+                                                           |
+                          +------------------+             v
+                          |   Phase 5        |     +------------------+
+                          |   PACKAGING      |<----|   Phase 4        |
+                          +------------------+     |   REFINEMENT     |
+                                                   +------------------+
 ```
 
 ---
@@ -194,6 +194,46 @@ For each generated rule file, verify:
 - Mermaid diagram syntax errors (use text fallback)
 - Minor formatting inconsistencies
 - Optional sections missing
+
+---
+
+## Plugin Structure Validation
+
+### Required Checks for PACKAGING Phase
+
+When generating plugin structure (P1/P2), validate:
+
+1. **plugin.json**: Required fields present (name, version, description, agents, skills, commands)
+2. **SKILL.md line count**: 75-150 lines per skill entry point
+3. **core-workflow line count**: 200-600 lines
+4. **Phase Rule file line count**: 100-300 lines each
+5. **Common Rule file line count**: 50-200 lines each
+6. **Directory structure**: All referenced files exist in the plugin tree
+
+### Content Density Guard
+
+Based on Domain Research Pattern 6 (content density limits):
+- Files exceeding upper line limit → split or delegate to sub-files
+- Files below lower line limit → insufficient depth, add domain content
+
+### Self-Application Exclusion
+
+**The line count guidelines are designed for target agent's generated files, not for the SPM's own rule-details.** The SPM (meta-agent, Process Agent, Comprehensive depth) is inherently more detailed than the policies it generates. SPM's own common rules and phase rules are the generator's instructions and naturally exceed the guidelines intended for generated output. This exclusion applies only to SPM's own files; generated target agent files must comply with the guidelines.
+
+---
+
+## Dim 12-15 Pre-Validation (GENERATION Phase)
+
+During Phase Rules Generation (G3), perform early quality checks before Integration Validation:
+
+| Dimension | Pre-Check | Action if Below Threshold |
+|-----------|-----------|--------------------------|
+| Dim 12: Domain Specificity Rate | Count terminology.md terms in each Phase Rule file ÷ total lines | Flag for additional domain content injection |
+| Dim 13: Example Coverage | Count GOOD/BAD example blocks per file | Add examples from Domain Research best practices/pitfalls |
+| Dim 14: Artifact Template Completeness | Check output-producing files for template blocks | Add template sections before writing file |
+| Dim 15: Pitfall Reference Rate | Check error handling items for domain-research citations | Add pitfall-derived error scenarios |
+
+**Note**: These are early warnings, not final measurements. Final scoring occurs in R3 Quality Calibration.
 
 ---
 

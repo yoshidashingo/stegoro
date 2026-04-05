@@ -105,6 +105,27 @@ Identify capabilities in these categories:
 
 Assign overall complexity: **Simple** / **Standard** / **Complex**
 
+#### Quantitative Indicators by Complexity
+
+| Indicator | Simple | Standard | Complex |
+|-----------|--------|----------|---------|
+| Expected phases | 2-3 | 3-4 | 4-5 |
+| Expected stages | 6-10 | 10-14 | 14-18 |
+| Quality dimensions | 11 (standard) | 11-15 | 15 (all) |
+| core-workflow lines | 200-300 | 300-450 | 450-600 |
+| Total policy files | ~15 | ~25 | ~30-45 |
+
+#### 4-Type Analysis Template
+
+For each agent type, verify these type-specific characteristics:
+
+| Check | Process | Task | Analytical | Hybrid |
+|-------|---------|------|-----------|--------|
+| Sequential phases? | Yes (3-5) | Limited (2-3) | Variable (2-4) | Mixed |
+| State tracking? | Heavy | Light | Medium | Heavy |
+| Approval gates? | Every stage | Key stages | Output stages | Context-dependent |
+| Checkpoint pattern | Plan→Approve→Execute→Verify | Analyze→Process→Report | Ingest→Transform→Produce | Mode-switching |
+
 ### Step 6: Generate Purpose Analysis Questions (If Needed)
 **Action**: Create clarification questions if purpose is ambiguous
 **Input**: All analysis so far

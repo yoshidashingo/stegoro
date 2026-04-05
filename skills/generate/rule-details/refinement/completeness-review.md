@@ -126,11 +126,11 @@ Verify:
 - [ ] Session resumption error handling included
 
 ### Step 7: Quality Dimension Completeness
-**Action**: Verify all 11 quality dimensions are fully implemented
+**Action**: Verify all 15 quality dimensions are fully implemented
 **Input**: All generated files + quality-standards.md
 **Output**: Quality dimension completeness report
 
-For each of the 11 dimensions, verify:
+For each of the 15 dimensions, verify:
 
 | Dimension | File(s) Implementing | Status | Missing Elements |
 |-----------|---------------------|--------|-----------------|
@@ -202,7 +202,7 @@ Verify against scope definition targets:
 | Classifications | PASS/FAIL | [N]/[N] explicit |
 | Approval Gates | PASS/FAIL | [N]/[N] defined |
 | Error Handling | PASS/FAIL | [N]/[N] covered |
-| Quality Dimensions | PASS/FAIL | [N]/11 complete |
+| Quality Dimensions | PASS/FAIL | [N]/15 complete |
 | Quantitative | PASS/FAIL | [N] files, [N] lines |
 
 ## Overall Status: [PASS / FAIL]
@@ -211,6 +211,42 @@ Verify against scope definition targets:
 
 ## Gaps Found
 [If any, with remediation plan]
+```
+
+---
+
+## Content Depth Verification
+
+In addition to structural completeness, verify content depth across all generated files:
+
+### Content Depth Checklist
+
+- [ ] All Phase Rule files have Purpose, Prerequisites, Steps, Error Handling, Completion Message sections
+- [ ] All Phase Rule files have >= 2 GOOD/BAD examples (Dim 13 pre-check)
+- [ ] All GENERATION files have artifact output templates (Dim 14 pre-check)
+- [ ] All Error Handling sections contain domain-specific scenarios (not just generic errors)
+- [ ] All Completion Messages use REVIEW REQUIRED + WHAT'S NEXT 2-option format
+
+### Gap Classification and Routing
+
+When gaps are found, classify and route via the repair judgment tree:
+
+| Gap Type | Classification | Return To |
+|----------|---------------|-----------|
+| File missing / flow path break | Structural | G1 (Core Workflow Generation) |
+| Section missing in existing file | Content | G3 (Phase Rules Generation) |
+| Template missing in output file | Content | G2 or G3 |
+| Examples insufficient (< 2/file) | Content | G3 (Phase Rules Generation) |
+| Domain-specific content absent | Content | G3 (Phase Rules Generation) |
+
+### Content Depth Report Format
+
+```markdown
+## Content Depth Summary
+
+| File | Sections | Examples | Templates | Domain Errors | Status |
+|------|----------|----------|-----------|---------------|--------|
+| [file] | [N/5] | [N] | [Yes/No] | [Yes/No] | [OK/GAP] |
 ```
 
 ---
@@ -226,7 +262,7 @@ Verify against scope definition targets:
 - **Classifications**: [N]/[N] explicit
 - **Approval Gates**: [N]/[N] defined
 - **Error Handling**: [N] phases covered
-- **Quality Dimensions**: [N]/11 fully implemented
+- **Quality Dimensions**: [N]/15 fully implemented
 - **Quantitative**: [N] files, [N] lines
 
 **Overall Status**: [PASS / FAIL]

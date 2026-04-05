@@ -9,7 +9,7 @@ When a user returns to continue work on an existing steering policy creation pro
 Based on your steering-state.md, here's your current status:
 - **Target Agent**: [agent-name]
 - **Agent Type**: [Process/Task/Analytical/Hybrid]
-- **Current Phase**: [DISCOVERY/DESIGN/GENERATION/REFINEMENT]
+- **Current Phase**: [DISCOVERY/DESIGN/GENERATION/REFINEMENT/PACKAGING]
 - **Current Stage**: [Stage Name]
 - **Last Completed**: [Last completed step]
 - **Next Step**: [Next step to work on]
@@ -42,6 +42,8 @@ B) Review a previous stage ([Show available stages])
    - **DESIGN Phase**: Load all DISCOVERY artifacts + prior DESIGN artifacts
    - **GENERATION Phase**: Load all DISCOVERY + DESIGN artifacts + prior GENERATION artifacts
    - **REFINEMENT Phase**: Load ALL artifacts from all phases
+   - **PACKAGING Phase**: Load ALL artifacts + plugin design from Scope Definition
+   - **Repair Loop Resume**: Load Repair Loop History from steering-state.md, identify current loop count and last repair target
 5. **Adapt options** based on agent type classification and current phase
 6. **Show specific next steps** rather than generic descriptions
 7. **Log the continuity prompt** in audit.md with timestamp
@@ -86,6 +88,14 @@ B) Review a previous stage ([Show available stages])
 - [ ] Completeness Review — PENDING
 - [ ] Consistency Review — PENDING
 - [ ] Quality Calibration — PENDING
+
+### PACKAGING PHASE
+- [ ] Plugin Structure Generation — PENDING
+- [ ] Automated Validation — PENDING
+- [ ] Migration Execution — PENDING / SKIPPED (reason)
+
+## Repair Loop History
+- [timestamp] Loop #[N]: [Source Stage] → [Target Stage]: [Reason] (dimension: Dim [N])
 
 ## Current Position
 - **Phase**: DESIGN

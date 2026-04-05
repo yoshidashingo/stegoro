@@ -20,6 +20,7 @@ Overconfidence in policy creation manifests when:
 3. **Design Phase**: Copying templates without adapting to the target agent's specific needs
 4. **Generation Phase**: Producing generic content instead of domain-tailored rules
 5. **Refinement Phase**: Passing quality checks without thorough comparison to AI-DLC reference
+6. **Packaging Phase**: Claiming plugin completion without smoke testing all 4 agent types
 
 ---
 
@@ -96,12 +97,16 @@ Overconfidence in policy creation manifests when:
 
 #### File Content Generation
 - **DO NOT** generate generic placeholder content
+- **DO NOT** generate content from templates alone without domain injection — domain specificity rate < 40% is a sign of insufficient injection
 - **DO** generate fully detailed, domain-specific content
 - **DO** reference specific domain terminology, standards, and practices
 - **DO** ask for clarification when content decisions could go multiple ways
+- **DO** insert minimum 2 GOOD/BAD examples per Phase Rule file
 
 #### Integration Validation
-- **DO NOT** perform superficial validation
+- **DO NOT** perform superficial validation — structure tests alone are insufficient
+- **DO NOT** skip content tests (Dim 12-15) even if structure tests pass
+- **DO** execute all 3 test layers (structure + content + smoke)
 - **DO** trace every workflow path through the generated files
 - **DO** verify every cross-reference resolves
 - **DO** check for logical gaps and dead ends
@@ -110,9 +115,25 @@ Overconfidence in policy creation manifests when:
 
 #### Quality Calibration
 - **DO NOT** pass all dimensions automatically
-- **DO** honestly assess each dimension with specific evidence
+- **DO NOT** use subjective assessment ("looks good enough") — use Dim 12-15 quantitative metrics with evidence
+- **DO** honestly assess each dimension with specific evidence (file path:line number, count values)
 - **DO** flag dimensions that need improvement
 - **DO** compare with AI-DLC reference with real analysis, not superficial checks
+- **DO** follow the repair judgment tree for FAIL routing — do not manually choose return targets
+
+#### Repair Loop Discipline
+- **DO NOT** silently retry if repair doesn't improve the score on 2nd attempt — question the problem classification itself
+- **DO** record each repair loop in steering-state.md Repair Loop History
+- **DO** escalate to user when limits are reached (max 3 total, same-target 2x)
+
+### PACKAGING Phase
+
+#### Plugin Structure
+- **DO NOT** claim plugin completion without smoke testing — structure tests alone are insufficient
+- **DO NOT** skip any of the 4 agent types (Process/Task/Analytical/Hybrid) in smoke tests
+- **DO** verify SKILL.md is 75-150 lines (concise entry point, details in rule-details)
+- **DO** validate all plugin.json references resolve to actual files
+- **DO** check against `implementation-knowhow.md` skill design patterns
 
 ---
 

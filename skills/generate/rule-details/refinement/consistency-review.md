@@ -240,6 +240,50 @@ Verify:
 
 ---
 
+## Domain Specificity Measurement (Dim 12)
+
+### Measurement Procedure
+
+For each Phase Rule file, measure domain specificity rate:
+
+1. **Count total content lines**: Total lines - blank lines - heading lines
+2. **Count domain-specific lines**: Lines containing:
+   - Terms defined in terminology.md
+   - Domain-specific proper nouns from Domain Research
+   - Domain-specific procedures, checks, standards
+   - NOT generic template boilerplate
+3. **Calculate**: domain-specific lines ÷ total content lines
+4. **Threshold**: >= 40% per file
+
+### Domain Specificity Heatmap
+
+```markdown
+## Domain Specificity by File
+
+| File | Total Lines | Domain Lines | Rate | Status |
+|------|------------|-------------|------|--------|
+| discovery/purpose-analysis.md | [N] | [N] | [N]% | [OK/LOW] |
+| discovery/domain-research.md | [N] | [N] | [N]% | [OK/LOW] |
+| ... | ... | ... | ... | ... |
+
+**Average**: [N]% | **Below 40%**: [N] files
+```
+
+### 4-Agent-Type Consistency Check
+
+Verify references to the 4 agent types (Process/Task/Analytical/Hybrid) are consistent:
+- [ ] All phase rule files that mention agent types use all 4 types consistently
+- [ ] No agent type is described differently across files
+- [ ] Agent type characteristics match terminology.md definitions
+
+### Handling Results
+
+R2 is a **measurement and minor-fix stage**, not a repair-routing stage:
+- **Minor issues** (terminology corrections, formatting): Fix in-place during R2
+- **Structural issues** (domain specificity too low, missing sections): Measure and report. These feed into R3 Quality Calibration for repair routing via the judgment tree.
+
+---
+
 ## Completion Message
 
 ### REVIEW REQUIRED
@@ -248,9 +292,10 @@ Verify:
 
 - **Total Items Checked**: [N]
 - **Violations Found**: [N]
-- **Violations Fixed**: [N]
-- **Remaining Issues**: [N]
+- **Violations Fixed**: [N] (minor, in-place)
+- **Remaining Issues**: [N] (reported to R3)
 - **Consistency Score**: [N]%
+- **Domain Specificity**: Average [N]%, [N] files below 40%
 
 Key findings:
 - [Finding 1]

@@ -13,13 +13,17 @@ The AI model intelligently assesses what is needed based on:
 ## MANDATORY: Rule Details Loading
 **CRITICAL**: When performing any phase, you MUST read and use relevant content from rule detail files in `rule-details/` directory.
 
-**Common Rules**: ALWAYS load common rules at workflow start:
+**Common Rules**: ALWAYS load all 11 common rules at workflow start:
 - Load `common/process-overview.md` for workflow overview
 - Load `common/session-continuity.md` for session resumption guidance
 - Load `common/content-validation.md` for content validation requirements
 - Load `common/question-format-guide.md` for question formatting rules
+- Load `common/error-handling.md` for recovery procedures
+- Load `common/overconfidence-prevention.md` for uncertainty handling
 - Load `common/terminology.md` for standardized terminology
-- Load `common/quality-standards.md` for AI-DLC quality benchmark
+- Load `common/quality-standards.md` for 15-dimension quality benchmark
+- Load `common/output-structure-patterns.md` for artifact structure patterns
+- Load `common/implementation-knowhow.md` for domain-specific implementation patterns
 - Reference these throughout the workflow execution
 
 ## MANDATORY: Content Validation
@@ -71,9 +75,9 @@ The AI model intelligently assesses what is needed based on:
 2. Load all steps from `discovery/purpose-analysis.md`
 3. Execute purpose analysis:
    - Analyze user's stated purpose and intent
-   - Classify target agent type (Process / Task / Analytical / Hybrid)
+   - Classify target agent type using **4-type analysis templates** (Process / Task / Analytical / Hybrid)
    - Identify core capabilities the agent needs
-   - Determine complexity level (Simple / Standard / Complex)
+   - Determine complexity level (Simple / Standard / Complex) using **quantitative indicators** (phase count, stage count, quality dimension count)
    - Map purpose to known agent patterns
 4. **MANDATORY**: Create purpose analysis question file if clarification needed
 5. **Wait for Explicit Approval**: Present purpose analysis summary — DO NOT PROCEED until user confirms
@@ -83,22 +87,22 @@ The AI model intelligently assesses what is needed based on:
 ## Domain Research (ALWAYS EXECUTE — Adaptive Depth)
 
 **Always executes** but depth varies based on domain familiarity and complexity:
-- **Minimal**: Well-known domain with clear best practices (e.g., code review)
-- **Standard**: Domain with some nuance requiring research (e.g., security audit)
-- **Comprehensive**: Novel or high-risk domain requiring deep research (e.g., medical device compliance)
+- **Minimal**: Well-known domain with clear best practices — minimum 3 research items
+- **Standard**: Domain with some nuance requiring research — minimum 7 research items
+- **Comprehensive**: Novel or high-risk domain requiring deep research — minimum 12 research items
 
 **Execution**:
-1. **MANDATORY**: Log any user input during this phase in audit.md
+1. **MANDATORY**: Log any user input during this stage in audit.md
 2. Load all steps from `discovery/domain-research.md`
-3. Execute domain research:
-   - Research domain-specific best practices
-   - Identify domain quality standards and compliance requirements
-   - Catalog common pitfalls and failure modes
-   - Document domain-specific terminology
-   - Identify reference implementations or standards
-4. Execute at appropriate depth (minimal/standard/comprehensive)
-5. **Wait for Explicit Approval**: Present domain research summary — DO NOT PROCEED until user confirms
-6. **MANDATORY**: Log user's response in audit.md with complete raw input
+3. Execute domain research with **MCP tool integration**:
+   - Context7 → official documentation lookup
+   - Exa → web research for best practices and patterns
+   - gh search → existing implementation examples
+   - **Fallback**: If MCP tools unavailable, ask user directly for domain knowledge
+4. Research domain-specific best practices, pitfalls, quality standards, terminology, and reference implementations
+5. Execute at appropriate depth (minimal/standard/comprehensive) meeting minimum item counts
+6. **Wait for Explicit Approval**: Present domain research summary — DO NOT PROCEED until user confirms
+7. **MANDATORY**: Log user's response in audit.md with complete raw input
 
 ## Stakeholder Identification (CONDITIONAL)
 
@@ -114,7 +118,7 @@ The AI model intelligently assesses what is needed based on:
 - User explicitly confirms single stakeholder
 
 **Execution**:
-1. **MANDATORY**: Log any user input during this phase in audit.md
+1. **MANDATORY**: Log any user input during this stage in audit.md
 2. Load all steps from `discovery/stakeholder-identification.md`
 3. Execute stakeholder identification:
    - Identify all user types and personas
@@ -126,7 +130,7 @@ The AI model intelligently assesses what is needed based on:
 
 ## Scope Definition (ALWAYS EXECUTE)
 
-1. **MANDATORY**: Log any user input during this phase in audit.md
+1. **MANDATORY**: Log any user input during this stage in audit.md
 2. Load all steps from `discovery/scope-definition.md`
 3. Load all prior DISCOVERY context:
    - Purpose analysis results
@@ -134,10 +138,12 @@ The AI model intelligently assesses what is needed based on:
    - Stakeholder identification (if executed)
 4. Execute scope definition:
    - Define policy set boundaries (what's in scope, what's out)
-   - Estimate number of phases and stages for target agent
-   - Estimate number of rule files needed
-   - Define quality level target
-   - Create preliminary directory structure
+   - Estimate number of phases and stages for target agent (5 phases including PACKAGING)
+   - **Measure existing files** with `wc -l` for accurate baseline (brush-up only)
+   - Estimate number of rule files needed with **target line count differentials**
+   - Define quality level target (Standard / Premium)
+   - Create preliminary directory structure including **plugin structure**
+   - Create **migration plan** template (brush-up only)
 5. **Wait for Explicit Approval**: Present scope definition with estimated effort — DO NOT PROCEED until user confirms
 6. **MANDATORY**: Log user's response in audit.md with complete raw input
 
@@ -159,7 +165,7 @@ The AI model intelligently assesses what is needed based on:
 
 ## Workflow Architecture (ALWAYS EXECUTE)
 
-1. **MANDATORY**: Log any user input during this phase in audit.md
+1. **MANDATORY**: Log any user input during this stage in audit.md
 2. Load all steps from `design/workflow-architecture.md`
 3. **MANDATORY**: Load content validation rules from `common/content-validation.md`
 4. Load all prior context:
@@ -168,19 +174,21 @@ The AI model intelligently assesses what is needed based on:
    - Stakeholder identification (if executed)
    - Scope definition (boundaries, estimates)
 5. Execute workflow architecture design:
-   - Design phase structure based on agent type
+   - Design phase structure based on agent type (including PACKAGING phase for Complex agents)
    - Define stages within each phase with ALWAYS/CONDITIONAL classification
    - Design stage dependencies and flow
    - Create workflow visualization (VALIDATE Mermaid syntax before writing)
    - Define checkpoint and approval gate placement
    - Design state tracking mechanism
+   - **Design repair judgment tree** — quality dimension → problem classification → return target mapping
+   - **Design repair loop control** — max retries, same-target limits, escalation conditions
 6. **MANDATORY**: Validate all content before file creation per content-validation.md rules
 7. **Wait for Explicit Approval**: Present workflow architecture with visualization — DO NOT PROCEED until user confirms
 8. **MANDATORY**: Log user's response in audit.md with complete raw input
 
 ## Common Rules Design (ALWAYS EXECUTE)
 
-1. **MANDATORY**: Log any user input during this phase in audit.md
+1. **MANDATORY**: Log any user input during this stage in audit.md
 2. Load all steps from `design/common-rules-design.md`
 3. Load all prior context including workflow architecture
 4. Execute common rules design:
@@ -191,12 +199,13 @@ The AI model intelligently assesses what is needed based on:
    - Design content validation rules specific to domain
    - Design error handling procedures
    - Design session continuity approach
+   - **Design plugin-related rules** (if PACKAGING phase is included)
 5. **Wait for Explicit Approval**: Present common rules design — DO NOT PROCEED until user confirms
 6. **MANDATORY**: Log user's response in audit.md with complete raw input
 
 ## Phase Rules Design (ALWAYS EXECUTE)
 
-1. **MANDATORY**: Log any user input during this phase in audit.md
+1. **MANDATORY**: Log any user input during this stage in audit.md
 2. Load all steps from `design/phase-rules-design.md`
 3. Load all prior context including workflow architecture and common rules design
 4. Execute phase rules design:
@@ -206,6 +215,8 @@ The AI model intelligently assesses what is needed based on:
      - Define inter-stage dependencies
      - Design stage completion criteria
      - Design approval gate content
+     - **Identify domain content injection points** for each stage rule file
+   - **Design PACKAGING phase rules** (P1/P2/P3) if applicable
    - Map rule files to directory structure
    - Verify complete coverage of all workflow paths
 5. **Wait for Explicit Approval**: Present phase rules design with file list — DO NOT PROCEED until user confirms
@@ -213,7 +224,7 @@ The AI model intelligently assesses what is needed based on:
 
 ## Quality Mechanisms Design (ALWAYS EXECUTE)
 
-1. **MANDATORY**: Log any user input during this phase in audit.md
+1. **MANDATORY**: Log any user input during this stage in audit.md
 2. Load all steps from `design/quality-mechanisms-design.md`
 3. Load all prior context including workflow architecture and rules designs
 4. Execute quality mechanisms design:
@@ -223,7 +234,10 @@ The AI model intelligently assesses what is needed based on:
    - Design overconfidence prevention measures
    - Design error handling and recovery procedures
    - Design completeness verification approach
-   - Map to AI-DLC 11 quality dimensions
+   - Map to **15 quality dimensions** (11 standard + 4 domain-specific)
+   - **Design repair judgment tree** with dimension → classification → target mapping
+   - **Design 3-layer automated testing** (structure + content + smoke)
+   - **Design loop control rules** (max 3 retries, same-target 2x escalation)
 5. **Wait for Explicit Approval**: Present quality mechanisms design — DO NOT PROCEED until user confirms
 6. **MANDATORY**: Log user's response in audit.md with complete raw input
 
@@ -249,6 +263,11 @@ The AI model intelligently assesses what is needed based on:
 1. **Part 1 - Planning**: Create detailed generation plan with explicit steps
 2. **Part 2 - Generation**: Execute approved plan to generate the core workflow file
 
+**Adaptive Depth** — core-workflow output varies by complexity:
+- **Light** (Simple/Task Agent): 200-300 lines, 2-3 phases, stage overviews
+- **Medium** (Standard Agent): 300-450 lines, 3-4 phases, execution summaries + approval gates
+- **Heavy** (Complex/Process Agent): 450-600 lines, 4-5 phases, detailed steps + adaptive depth + error handling
+
 **Execution**:
 1. **MANDATORY**: Log any user input during this stage in audit.md
 2. Load all steps from `generation/core-workflow-generation.md`
@@ -269,11 +288,13 @@ The AI model intelligently assesses what is needed based on:
 1. **MANDATORY**: Log any user input during this stage in audit.md
 2. Load all steps from `generation/common-rules-generation.md`
 3. Load all DESIGN phase artifacts and generated core workflow
-4. Execute common rules generation:
+4. Execute common rules generation using **Light/Medium/Heavy templates**:
    - Generate each common rule file following the design specifications
    - Apply domain-specific adaptations
+   - **Follow generation order**: terminology → quality-standards → remaining files
    - Cross-reference with core workflow for consistency
    - Validate content before writing each file
+   - **Check line count guidelines** for each file
 5. **MANDATORY**: Present standardized 2-option completion message
 6. **Wait for Explicit Approval**: User must choose between "Request Changes" or "Continue to Next Stage" — DO NOT PROCEED until user confirms
 7. **MANDATORY**: Log user's response in audit.md with complete raw input
@@ -284,30 +305,34 @@ The AI model intelligently assesses what is needed based on:
 1. **MANDATORY**: Log any user input during this stage in audit.md
 2. Load all steps from `generation/phase-rules-generation.md`
 3. Load all DESIGN phase artifacts, core workflow, and common rules
-4. Execute phase rules generation:
+4. Execute phase rules generation with **domain content injection**:
    - For each phase in the target workflow:
      - Generate each stage rule file following the design
+     - **Execute domain content injection heuristics** (5 steps):
+       - 3c-1: Load Domain Research Summary
+       - 3c-2: Map domain content to Execution Steps, Examples, Error Handling
+       - 3c-3: Measure domain specificity rate per file (terminology terms ÷ total lines)
+       - 3c-4: Flag files below 40% for additional injection
+       - 3c-5: Inject additional examples, procedures, checks into flagged files
      - Ensure stage rule files reference appropriate common rules
+     - Insert **minimum 2 GOOD/BAD examples** per file
      - Validate inter-stage references and dependencies
      - Validate content before writing each file
+   - **Generate PACKAGING phase rules** (P1/P2/P3) if applicable
 5. **MANDATORY**: Present standardized 2-option completion message
 6. **Wait for Explicit Approval**: User must choose between "Request Changes" or "Continue to Next Stage" — DO NOT PROCEED until user confirms
 7. **MANDATORY**: Log user's response in audit.md with complete raw input
 
 ## Integration Validation (ALWAYS EXECUTE)
 
+**3-Layer Testing** — Structure (file existence, references, Markdown, flow paths) + Content (Dim 12-15 pre-validation) + Smoke (4 agent types traversal). All layers must PASS with 0 errors.
+
 **Execution**:
 1. **MANDATORY**: Log any user input during this stage in audit.md
 2. Load all steps from `generation/integration-validation.md`
-3. Load ALL generated files
-4. Execute integration validation:
-   - Verify all files referenced in core-workflow.md exist
-   - Verify all cross-references between files resolve correctly
-   - Verify workflow flow completeness (no dead ends, no orphaned stages)
-   - Verify pattern consistency across all files
-   - Verify quality dimension coverage
-   - Generate validation report
-5. **If validation fails**: Return to appropriate generation stage to fix issues
+3. Load ALL generated files and execute 3-layer testing
+4. Generate validation report (see `generation/integration-validation.md` for report format)
+5. **If validation FAIL**: Route by test layer — Structure FAIL → G1, Content FAIL (Dim 12-15) → G3, Smoke FAIL → G1 (flow break)
 6. **Wait for Explicit Approval**: Present validation report — DO NOT PROCEED until user confirms
 7. **MANDATORY**: Log user's response in audit.md with complete raw input
 
@@ -315,9 +340,9 @@ The AI model intelligently assesses what is needed based on:
 
 # REFINEMENT PHASE
 
-**Purpose**: Ensuring AI-DLC-level quality in the generated policy set
+**Purpose**: Ensuring quality in the generated policy set
 
-**Focus**: Review, validate, and calibrate the complete policy set
+**Focus**: Review, validate, and calibrate the complete policy set against 15 quality dimensions
 
 **Stages in REFINEMENT PHASE**:
 - Completeness Review (ALWAYS)
@@ -328,57 +353,120 @@ The AI model intelligently assesses what is needed based on:
 
 ## Completeness Review (ALWAYS EXECUTE)
 
-1. **MANDATORY**: Log any user input during this phase in audit.md
+1. **MANDATORY**: Log any user input during this stage in audit.md
 2. Load all steps from `refinement/completeness-review.md`
 3. Load ALL generated policy files
-4. Execute completeness review:
-   - Check all workflow paths have corresponding rule files
-   - Check all ALWAYS/CONDITIONAL classifications are documented
-   - Check all approval gates are defined
-   - Check all error scenarios have handling procedures
-   - Check all quality dimensions are covered
-   - Generate completeness checklist with pass/fail for each item
-5. **If gaps found**: Return to GENERATION phase to fill gaps
+4. Execute completeness review — **two axes**:
+   - **Structural completeness**: All workflow paths have corresponding rule files, all ALWAYS/CONDITIONAL classifications documented, all approval gates defined, all error scenarios have handling procedures
+   - **Content depth**: All Phase Rule files have Purpose/Prerequisites/Steps/Error Handling/Completion Message sections, all files have >=2 GOOD/BAD examples, all GENERATION files have artifact templates, all Error Handling sections contain domain-specific scenarios
+5. **If gaps found**: Route via repair judgment tree:
+   - File missing / flow break → `[REPAIR: structure]` → G1
+   - Content insufficient (no templates, no examples) → `[REPAIR: content]` → G3
 6. **Wait for Explicit Approval**: Present completeness report — DO NOT PROCEED until user confirms
 7. **MANDATORY**: Log user's response in audit.md with complete raw input
 
 ## Consistency Review (ALWAYS EXECUTE)
 
-1. **MANDATORY**: Log any user input during this phase in audit.md
+1. **MANDATORY**: Log any user input during this stage in audit.md
 2. Load all steps from `refinement/consistency-review.md`
 3. Load ALL generated policy files
 4. Execute consistency review:
-   - Verify terminology usage matches terminology.md across all files
+   - Verify terminology usage matches terminology.md across all files (including Common Misuse detection)
    - Verify structural patterns are consistent (headings, sections, formatting)
    - Verify completion message formats are consistent
    - Verify question file formats follow the guide
    - Verify error handling patterns are consistent
-   - Generate consistency report with findings
-5. **If inconsistencies found**: Fix them in-place or return to GENERATION
+   - **Measure domain specificity rate** per Phase Rule file (Dim 12 measurement)
+   - **Verify 4-agent-type consistency** — references to Process/Task/Analytical/Hybrid are consistent
+   - Generate consistency report with findings and **domain specificity heatmap**
+5. **If inconsistencies found**: Fix minor issues in-place (terminology corrections, formatting). Structural issues are measured and reported to R3 Quality Calibration for repair routing — R2 does NOT trigger repair loops.
 6. **Wait for Explicit Approval**: Present consistency report — DO NOT PROCEED until user confirms
 7. **MANDATORY**: Log user's response in audit.md with complete raw input
 
 ## Quality Calibration (ALWAYS EXECUTE)
 
-1. **MANDATORY**: Log any user input during this phase in audit.md
+1. **MANDATORY**: Log any user input during this stage in audit.md
 2. Load all steps from `refinement/quality-calibration.md`
-3. Load ALL generated policy files AND AI-DLC reference files
-4. Execute quality calibration against 11 dimensions:
-   - **Dimension 1**: Adaptive Workflow — stages classified ALWAYS/CONDITIONAL
-   - **Dimension 2**: Mandatory Checkpoints — user approval at critical decisions
-   - **Dimension 3**: Question File Format — multi-choice + Other + [Answer]: tag
-   - **Dimension 4**: Content Validation — pre-creation validation rules
-   - **Dimension 5**: Audit Trail — ISO 8601 timestamps, complete logging
-   - **Dimension 6**: Error Handling — phase-specific recovery procedures
-   - **Dimension 7**: Overconfidence Prevention — "when in doubt, ask" philosophy
-   - **Dimension 8**: Depth Levels — adaptive detail based on complexity
-   - **Dimension 9**: Session Continuity — state tracking and resumption
-   - **Dimension 10**: Terminology Standardization — glossary enforcement
-   - **Dimension 11**: Standardized Completion Messages — REVIEW REQUIRED + WHAT'S NEXT
-5. Score each dimension (Pass / Partial / Fail) with evidence
-6. **If any dimension fails**: Return to appropriate phase to remediate
-7. **Wait for Explicit Approval**: Present calibration scorecard — DO NOT PROCEED until user confirms
-8. **MANDATORY**: Log user's response in audit.md with complete raw input
+3. Load ALL generated policy files AND quality standards reference
+4. Execute quality calibration against **15 dimensions** (Dim 1-11: AI-DLC standard, Dim 12-15: domain-specific — see `common/quality-standards.md` for full definitions):
+   - Dim 1-11: Adaptive Workflow, Mandatory Checkpoints, Question File Format, Content Validation, Audit Trail, Error Handling, Overconfidence Prevention, Depth Levels, Session Continuity, Terminology Standardization, Standardized Completion Messages
+   - Dim 12: Domain Specificity Rate >= 40%
+   - Dim 13: Example Coverage >= 2/file
+   - Dim 14: Artifact Template Completeness = 100%
+   - Dim 15: Pitfall Reference Rate >= 50%
+5. Score each dimension (Pass / Partial / Fail) with **evidence** (file path:line number, count values)
+6. **If any dimension FAIL**: Apply repair judgment tree (see below)
+7. **Approval criteria**:
+   - **APPROVED**: 15/15 PASS → proceed to PACKAGING
+   - **CONDITIONAL APPROVAL**: 13+ PASS, FAIL only in Dim 12-15 → user decides
+   - **NEEDS REMEDIATION**: <=12 PASS or Dim 1-11 FAIL → repair loop
+8. **Wait for Explicit Approval**: Present calibration scorecard — DO NOT PROCEED until user confirms
+9. **MANDATORY**: Log user's response in audit.md with complete raw input
+
+---
+
+# PACKAGING PHASE
+
+**Purpose**: Packaging validated policies into Claude Code plugin format
+
+**Focus**: Plugin structure generation, automated validation, and migration
+
+**Stages in PACKAGING PHASE**:
+- Plugin Structure Generation (ALWAYS)
+- Automated Validation (ALWAYS)
+- Migration Execution (CONDITIONAL)
+
+---
+
+## Plugin Structure Generation (ALWAYS EXECUTE)
+
+1. **MANDATORY**: Log any user input during this stage in audit.md
+2. Load all steps from `packaging/plugin-structure-generation.md`
+3. Load REFINEMENT results (APPROVED: 15/15 PASS, or CONDITIONAL APPROVAL: 13+ PASS with user-approved progression) and Scope Definition
+4. Execute plugin structure generation:
+   - Generate plugin configuration: plugin.json + marketplace.json
+   - Generate agent definitions (orchestrator + specialist agents)
+   - Generate skill entry points (SKILL.md files, 75-150 lines each)
+   - Generate commands (new-policy, resume-policy, validate-policy)
+   - Generate rules file (standards enforcement)
+   - Copy improved rule-details files into plugin structure
+   - Validate against `common/implementation-knowhow.md` skill design patterns
+5. **MANDATORY**: Present standardized 2-option completion message
+6. **Wait for Explicit Approval**: User must choose between "Request Changes" or "Continue to Next Stage" — DO NOT PROCEED until user confirms
+7. **MANDATORY**: Log user's response in audit.md with complete raw input
+
+## Automated Validation (ALWAYS EXECUTE)
+
+**3-Layer Testing (Plugin Version)** — Structure (plugin.json fields, file existence) + Content (line count ranges: SKILL.md 75-150, core-workflow 200-600, Phase Rule 100-300, Common Rule 50-200) + Smoke (4 agent types flow traversal). All must PASS.
+
+**Execution**:
+1. **MANDATORY**: Log any user input during this stage in audit.md
+2. Load all steps from `packaging/automated-validation.md`
+3. Load plugin structure from P1 and execute 3-layer testing
+4. **If FAIL**: Return to P1 for targeted fixes (max 2 P2→P1 loops)
+5. **Wait for Explicit Approval**: Present validation report — DO NOT PROCEED until user confirms
+6. **MANDATORY**: Log user's response in audit.md with complete raw input
+
+## Migration Execution (CONDITIONAL)
+
+**Execute IF**:
+- Existing policy brush-up (legacy structure exists, e.g., `.steering/` directory)
+
+**Skip IF**:
+- New policy generation (no migration source)
+
+**Execution**:
+1. **MANDATORY**: Log any user input during this stage in audit.md
+2. Load all steps from `packaging/migration-execution.md`
+3. Execute migration:
+   - Identify migration source directory
+   - Create file path mapping (old → new)
+   - Copy improved files to plugin structure
+   - Verify integrity post-copy
+   - Update all references (CLAUDE.md, routing rules, etc.)
+   - Mark legacy directory as deprecated (do NOT delete)
+4. **Wait for Explicit Approval**: Present migration report — DO NOT PROCEED until user confirms
+5. **MANDATORY**: Log user's response in audit.md with complete raw input
 
 ---
 
@@ -395,6 +483,7 @@ The AI model intelligently assesses what is needed based on:
 - **Quality Focus**: Complex agents get full treatment, simple agents stay efficient
 - **Content Validation**: Always validate content before file creation per content-validation.md rules
 - **NO EMERGENT BEHAVIOR**: All phases MUST use standardized 2-option completion messages as defined in their respective rule files. DO NOT create 3-option menus or other emergent navigation patterns.
+- **Repair Loop Discipline**: Follow the repair judgment tree for all FAIL/gap routing. Max 3 repair loops total. Escalate to user on same-target 2nd return.
 
 ## MANDATORY: Plan-Level Checkbox Enforcement
 
@@ -429,6 +518,13 @@ The AI model intelligently assesses what is needed based on:
 ---
 ```
 
+### Additional Log Types
+
+- **Approval Log** (each CP): Add `**Checkpoint**: CP-[N]` and `**Result**: APPROVED/SKIPPED`
+- **Repair Loop Log**: Add `**Loop #**: [N]` `**Source→Target**: [Stage→Stage]` `**Dimension**: Dim [N]`
+- **Validation Log** (G4/P2): Add `**Test Layer**: [structure/content/smoke]` `**Result**: PASS/FAIL`
+- **Escalation Log**: Add `**Loop Count**: [N]` `**User Choice**: [continue/abort/rescope]`
+
 ### Correct Tool Usage for audit.md
 
 CORRECT:
@@ -441,65 +537,72 @@ WRONG:
 1. Read the audit.md file
 2. Completely overwrite the audit.md with the contents of what you read, plus the new changes you want to add to it
 
+---
+
+## Repair Judgment Tree
+
+When a quality dimension FAIL or completeness gap is detected, route to the appropriate stage.
+
+**Full 15-dimension mapping**: See `design/quality-mechanisms-design.md` Section 9 for the complete dimension→classification→target table.
+
+### Routing Summary
+
+```
+FAIL / Gap detected
+├── Structural (file missing, reference broken, flow break)
+│   → G1 (Core Workflow Generation)
+├── Content (domain specificity low, examples missing, templates missing)
+│   → G3 (Phase Rules Generation) or G2 (Common Rules)
+├── Design (phase structure inappropriate, stage classification error)
+│   → E1 (Workflow Architecture)
+└── Criteria (dimension definition deficiency)
+    → E4 (Quality Mechanisms Design)
+```
+
+### Repair Loop Control
+
+- **Max retries**: 3 total across entire workflow
+- **Same-target limit**: 2nd return to same stage triggers user escalation
+- **Escalation**: "Repair loop #{N}. Choose: A) Continue, B) Abort (with quality note), C) Rescope"
+- **P2 loop**: P2→P1 max 2 times (separate counter)
+- **History**: Record all loops in steering-state.md Repair Loop History
+
+---
+
 ## Domain Adaptation — Agent Type Classification
 
 The Steering Policy Maker classifies target agents into four types, which determine the generated policy structure:
 
-### Process Agent (e.g., AI-DLC, CI/CD Pipeline Manager)
-- **Structure**: Multi-phase workflow with conditional stages
-- **Pattern**: Plan → Approve → Execute → Verify
-- **Characteristics**: Sequential phases, checkpoint-heavy, state tracking, audit trail
-- **Typical Phases**: 3-5 phases with 3-7 stages each
-
-### Task Agent (e.g., Code Reviewer, Bug Triager)
-- **Structure**: Preparation → Execution → Reporting
-- **Pattern**: Analyze → Process → Report
-- **Characteristics**: Focused scope, fewer phases, rapid execution
-- **Typical Phases**: 2-3 phases with 2-4 stages each
-
-### Analytical Agent (e.g., Document Generator, Data Analyzer)
-- **Structure**: Input Analysis → Processing → Output Formatting
-- **Pattern**: Ingest → Transform → Produce
-- **Characteristics**: Data-driven, template-based outputs, validation-heavy
-- **Typical Phases**: 2-4 phases with 2-5 stages each
-
-### Hybrid Agent (e.g., DevOps Assistant, Project Manager)
-- **Structure**: Combination of above types
-- **Pattern**: Context-dependent switching between patterns
-- **Characteristics**: Multiple operation modes, complex state management
-- **Typical Phases**: 3-6 phases with variable stages
+| Type | Example | Pattern | Typical Phases |
+|------|---------|---------|---------------|
+| **Process** | AI-DLC, CI/CD Pipeline | Plan → Approve → Execute → Verify | 3-5 phases, 3-7 stages each |
+| **Task** | Code Reviewer, Bug Triager | Analyze → Process → Report | 2-3 phases, 2-4 stages each |
+| **Analytical** | Document Generator, Data Analyzer | Ingest → Transform → Produce | 2-4 phases, 2-5 stages each |
+| **Hybrid** | DevOps Assistant, Project Manager | Context-dependent switching | 3-6 phases, variable stages |
 
 ## Generated Output Directory Structure
+
+### Policy Files (Standard)
 
 ```text
 .<agent-name>/
 ├── <agent-name>-rules/
 │   └── core-workflow.md                    Master orchestrator
 └── <agent-name>-rule-details/
-    ├── common/                             Cross-phase rules
-    │   ├── welcome-message.md
-    │   ├── process-overview.md
-    │   ├── question-format-guide.md
-    │   ├── content-validation.md
-    │   ├── session-continuity.md
-    │   ├── error-handling.md
-    │   ├── overconfidence-prevention.md
-    │   ├── terminology.md
-    │   ├── quality-standards.md
-    │   └── output-structure-patterns.md
-    ├── <phase-1>/                          Phase-specific rules
-    │   ├── <stage-1>.md
-    │   ├── <stage-2>.md
-    │   └── ...
-    ├── <phase-2>/
-    │   └── ...
-    └── <phase-N>/
-        └── ...
+    ├── common/                             Cross-phase rules (11 files)
+    └── <phase-N>/                          Phase-specific rules per stage
 ```
 
-**CRITICAL RULES**:
-- Generated policy files: Inside `.<agent-name>/` directory
-- Each target agent gets its own top-level dot-directory
-- Common rules are always generated (adapted to domain)
-- Phase-specific rules match the designed workflow architecture
-- All file references in core-workflow.md must resolve to actual files
+### Plugin Structure (PACKAGING phase output)
+
+```text
+<agent-name>/
+├── .claude-plugin/                         plugin.json + marketplace.json
+├── agents/                                 Specialist agent definitions
+├── skills/                                 Skill entry points (SKILL.md)
+├── commands/                               Command definitions
+├── rules/                                  Quality standards rules
+└── <agent-name>-rule-details/              Improved rule files (copied from policy)
+```
+
+**CRITICAL RULES**: Generated policy files go inside `.<agent-name>/` directory. Each target agent gets its own dot-directory. All file references in core-workflow.md must resolve to actual files. Plugin structure is generated only in PACKAGING phase. Line limits: SKILL.md 75-150, core-workflow 200-600.

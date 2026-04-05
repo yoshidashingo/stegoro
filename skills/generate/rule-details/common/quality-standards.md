@@ -8,9 +8,9 @@ The AI-DLC reference can be found in `.aidlc/` and consists of 26+ files totalin
 
 ---
 
-## The 11 Quality Dimensions
+## The 15 Quality Dimensions
 
-Every generated steering policy set MUST achieve at least a "Pass" rating on all 11 quality dimensions. These dimensions are evaluated during the REFINEMENT phase's Quality Calibration stage.
+Every generated steering policy set MUST achieve at least a "Pass" rating on all 15 quality dimensions (11 AI-DLC standard + 4 SPM domain-specific). These dimensions are evaluated during the REFINEMENT phase's Quality Calibration stage.
 
 ### Dimension 1: Adaptive Workflow
 
@@ -134,7 +134,7 @@ Every generated steering policy set MUST achieve at least a "Pass" rating on all
 - Session resumption error handling
 
 **AI-DLC Reference**:
-- Comprehensive `error-handling.md` (~370 lines)
+- Comprehensive `error-handling.md` (~420 lines)
 - Covers every phase with specific error scenarios
 - Recovery procedures for partial completion, corruption, missing artifacts
 - Clear escalation guidelines
@@ -220,7 +220,7 @@ Every generated steering policy set MUST achieve at least a "Pass" rating on all
 - Agent type classifications defined
 
 **AI-DLC Reference**:
-- `terminology.md` with ~190 lines
+- `terminology.md` with ~170 lines (4-column table format)
 - Core terminology, phase descriptions, stage definitions
 - Architecture terms, artifact types, abbreviations
 - Usage guidelines with examples
@@ -252,6 +252,69 @@ Every generated steering policy set MUST achieve at least a "Pass" rating on all
 - PASS: All stages use 2-option format, no emergent patterns
 - PARTIAL: Most stages compliant, some variations
 - FAIL: No standardized format or emergent patterns present
+
+---
+
+## Domain-Specific Quality Dimensions (Dim 12-15)
+
+### Dimension 12: Domain Specificity Rate
+
+**Standard**: Phase Rule files must contain >= 40% domain-specific lines.
+
+**Measurement Method**:
+1. For each Phase Rule file, scan line by line
+2. A line is "domain-specific" if it: (a) contains terms from terminology.md, (b) contains domain-specific proper nouns or procedures from Domain Research, (c) is NOT a generic template boilerplate line
+3. Calculate: domain-specific lines ÷ (total lines - blank lines - heading lines)
+
+**Threshold**: >= 40%
+**Threshold Rationale**: Analysis of 10 existing high-quality skills showed average domain specificity of ~45% in strong skills and ~20% in weak skills. 40% is the minimum line for meaningful domain adaptation.
+
+**Evaluation Criteria**:
+- PASS: All Phase Rule files >= 40%
+- PARTIAL: Average >= 40% but some files below
+- FAIL: Average < 40% or majority of files below
+
+### Dimension 13: Example Coverage
+
+**Standard**: Each Phase Rule file must contain >= 2 concrete examples (GOOD/BAD patterns).
+
+**Measurement Method**: Count code blocks or structured example sections containing GOOD/BAD patterns, concrete scenarios, or domain-specific illustrations per Phase Rule file.
+
+**Threshold**: >= 2 examples per file
+**Threshold Rationale**: High-quality skills (e.g., frontend-slides, market-research) average 3-5 examples per section. 2 per file is the minimum for demonstrating expected behavior.
+
+**Evaluation Criteria**:
+- PASS: All Phase Rule files have >= 2 examples
+- PARTIAL: Average >= 2 but some files have 0-1
+- FAIL: Majority of files have < 2 examples
+
+### Dimension 14: Artifact Template Completeness
+
+**Standard**: 100% of output-producing files must include artifact templates.
+
+**Measurement Method**: Identify files that should produce output (generation/*.md, refinement/*.md). Check each for a template block showing the expected output format.
+
+**Threshold**: = 100%
+**Threshold Rationale**: Current coverage is 25% (1/4 generation files). Without templates, generation quality varies unpredictably.
+
+**Evaluation Criteria**:
+- PASS: All output-producing files have templates
+- PARTIAL: >= 75% have templates
+- FAIL: < 75% have templates
+
+### Dimension 15: Pitfall Reference Rate
+
+**Standard**: >= 50% of error handling items must reference domain-research pitfalls.
+
+**Measurement Method**: In error handling sections, count items that explicitly cite domain-research-summary.md pitfalls (by name or file reference) ÷ total error handling items.
+
+**Threshold**: >= 50%
+**Threshold Rationale**: If domain research identifies pitfalls but error handling doesn't reference them, the research value is wasted. 50% ensures at least half of error scenarios are domain-informed.
+
+**Evaluation Criteria**:
+- PASS: >= 50% of error items reference domain pitfalls
+- PARTIAL: 25-49% reference domain pitfalls
+- FAIL: < 25% reference domain pitfalls
 
 ---
 
@@ -287,25 +350,28 @@ Every generated steering policy set MUST achieve at least a "Pass" rating on all
 ```markdown
 # Quality Calibration Scorecard
 
-| Dimension | Score | Evidence |
-|-----------|-------|----------|
-| 1. Adaptive Workflow | PASS/PARTIAL/FAIL | [specific evidence] |
-| 2. Mandatory Checkpoints | PASS/PARTIAL/FAIL | [specific evidence] |
-| 3. Question File Format | PASS/PARTIAL/FAIL | [specific evidence] |
-| 4. Content Validation | PASS/PARTIAL/FAIL | [specific evidence] |
-| 5. Audit Trail | PASS/PARTIAL/FAIL | [specific evidence] |
-| 6. Error Handling | PASS/PARTIAL/FAIL | [specific evidence] |
-| 7. Overconfidence Prevention | PASS/PARTIAL/FAIL | [specific evidence] |
-| 8. Depth Levels | PASS/PARTIAL/FAIL | [specific evidence] |
-| 9. Session Continuity | PASS/PARTIAL/FAIL | [specific evidence] |
-| 10. Terminology | PASS/PARTIAL/FAIL | [specific evidence] |
-| 11. Completion Messages | PASS/PARTIAL/FAIL | [specific evidence] |
+| # | Dimension | Score | Evidence | Action |
+|---|-----------|-------|----------|--------|
+| 1 | Adaptive Workflow | PASS/PARTIAL/FAIL | [file:line or count] | [none/repair→target] |
+| 2 | Mandatory Checkpoints | PASS/PARTIAL/FAIL | [file:line or count] | |
+| 3 | Question File Format | PASS/PARTIAL/FAIL | [file:line or count] | |
+| 4 | Content Validation | PASS/PARTIAL/FAIL | [file:line or count] | |
+| 5 | Audit Trail | PASS/PARTIAL/FAIL | [file:line or count] | |
+| 6 | Error Handling | PASS/PARTIAL/FAIL | [file:line or count] | |
+| 7 | Overconfidence Prevention | PASS/PARTIAL/FAIL | [file:line or count] | |
+| 8 | Depth Levels | PASS/PARTIAL/FAIL | [file:line or count] | |
+| 9 | Session Continuity | PASS/PARTIAL/FAIL | [file:line or count] | |
+| 10 | Terminology Standardization | PASS/PARTIAL/FAIL | [file:line or count] | |
+| 11 | Standardized Completion Messages | PASS/PARTIAL/FAIL | [file:line or count] | |
+| 12 | Domain Specificity Rate | PASS/PARTIAL/FAIL | [N% per file] | |
+| 13 | Example Coverage | PASS/PARTIAL/FAIL | [N examples/file] | |
+| 14 | Artifact Template Completeness | PASS/PARTIAL/FAIL | [N/M = X%] | |
+| 15 | Pitfall Reference Rate | PASS/PARTIAL/FAIL | [N/M = X%] | |
 
-**Overall**: [X/11 PASS, Y/11 PARTIAL, Z/11 FAIL]
-**Verdict**: [APPROVED / NEEDS REMEDIATION]
+**Summary**: [X]/15 PASS — [APPROVED/CONDITIONAL/NEEDS REMEDIATION]
 ```
 
 ### Approval Criteria
-- **APPROVED**: All 11 dimensions PASS
-- **CONDITIONAL APPROVAL**: 9+ dimensions PASS, remainder PARTIAL, none FAIL
-- **NEEDS REMEDIATION**: Any dimension FAIL, or 3+ dimensions PARTIAL
+- **APPROVED**: All 15 dimensions PASS → proceed to PACKAGING
+- **CONDITIONAL APPROVAL**: 13+ dimensions PASS, FAIL only in Dim 12-15 → user decides
+- **NEEDS REMEDIATION**: <=12 dimensions PASS, or any Dim 1-11 FAIL → repair loop via repair judgment tree

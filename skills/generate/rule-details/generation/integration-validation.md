@@ -15,6 +15,46 @@ This stage always executes as it's the final quality gate before REFINEMENT.
 
 ---
 
+## 3-Layer Testing Architecture
+
+This stage executes 3 layers of testing. ALL layers must PASS.
+
+| Layer | Purpose | Checks | Pass Criteria |
+|-------|---------|--------|---------------|
+| **Structure** | Verify file integrity | File existence, core-workflow reference resolution, Markdown syntax, flow path traversal (all stages reachable) | 0 errors |
+| **Content** | Verify content quality | Dim 12: domain specificity >=40% per Phase Rule, Dim 13: examples >=2/file, Dim 14: artifact templates =100%, Dim 15: pitfall references >=50% | All above threshold |
+| **Smoke** | Verify workflow execution | Virtually trace all stages in core-workflow for 4 agent types (Process/Task/Analytical/Hybrid), verify step→output→next stage chain | 0 blocking inconsistencies |
+
+### FAIL Routing
+
+| Layer FAIL | Classification | Return To |
+|-----------|---------------|-----------|
+| Structure FAIL | Structural issue | G1 (Core Workflow Generation) |
+| Content FAIL (Dim 12-15) | Content issue | G3 (Phase Rules Generation) |
+| Smoke FAIL (flow break) | Structural issue | G1 (Core Workflow Generation) |
+
+### Validation Report Format
+
+```markdown
+## Integration Validation Report
+
+### Structure Tests
+- Total checks: [N] / PASS: [N] / FAIL: [N]
+
+### Content Tests
+- Dim 12 (Domain Specificity): [N]% (threshold: 40%) — [PASS/FAIL]
+- Dim 13 (Example Coverage): [N] examples/file (threshold: 2) — [PASS/FAIL]
+- Dim 14 (Artifact Templates): [N]% (threshold: 100%) — [PASS/FAIL]
+- Dim 15 (Pitfall Reference): [N]% (threshold: 50%) — [PASS/FAIL]
+
+### Smoke Tests
+- Process: [PASS/FAIL] | Task: [PASS/FAIL] | Analytical: [PASS/FAIL] | Hybrid: [PASS/FAIL]
+
+### Overall: [PASS/FAIL]
+```
+
+---
+
 ## Execution Steps
 
 ### Step 1: Inventory All Generated Files
@@ -191,11 +231,11 @@ Check:
 ```
 
 ### Step 6: Quality Dimension Coverage Verification
-**Action**: Verify all 11 quality dimensions are represented in generated files
+**Action**: Verify all 15 quality dimensions are represented in generated files
 **Input**: All generated files + quality-standards.md
 **Output**: Quality dimension coverage report
 
-For each of the 11 dimensions:
+For each of the 15 dimensions:
 1. Which generated files implement this dimension?
 2. Is the implementation complete or partial?
 3. Is the implementation consistent across files?
@@ -262,7 +302,7 @@ For each of the 11 dimensions:
 - **Flow Validation**: [PASS/FAIL] ([N] dead ends, [N] unreachable)
 - **Pattern Consistency**: [PASS/FAIL] ([N] non-compliant)
 - **Terminology Consistency**: [PASS/FAIL] ([N] violations)
-- **Quality Dimensions**: [N]/11 fully covered
+- **Quality Dimensions**: [N]/15 fully covered
 
 ## Overall Status: [PASS / FAIL]
 
@@ -282,7 +322,7 @@ For each of the 11 dimensions:
 - **Workflow Flow**: [PASS/FAIL] — [N] paths traced
 - **Pattern Consistency**: [PASS/FAIL] — [N] files checked
 - **Terminology**: [PASS/FAIL] — [N] terms verified
-- **Quality Dimensions**: [N]/11 covered
+- **Quality Dimensions**: [N]/15 covered
 
 **Overall Status**: [PASS / FAIL]
 

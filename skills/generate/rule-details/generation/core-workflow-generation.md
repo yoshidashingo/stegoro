@@ -32,7 +32,7 @@ Verify all required information is available:
 - [ ] Workflow architecture with all phases and stages defined
 - [ ] Common rules inventory with all 10+ rules specified
 - [ ] Phase rules inventory with all stage files specified
-- [ ] Quality mechanisms with all 11 dimensions designed
+- [ ] Quality mechanisms with all 15 dimensions designed
 - [ ] Content validation rules loaded
 
 #### Step 2: Create Generation Plan
@@ -89,6 +89,25 @@ Verify all required information is available:
 - [ ] All stages have approval gates
 - [ ] Completion message format is consistent
 ```
+
+## Adaptive Depth — Output Templates
+
+The generated core-workflow.md varies by target agent complexity:
+
+| Depth | Target | Phases | Stages | Lines | Characteristics |
+|-------|--------|--------|--------|-------|-----------------|
+| **Light** | Simple/Task Agent | 2-3 | 6-10 | 200-300 | Stage overviews, basic approval gates |
+| **Medium** | Standard Agent | 3-4 | 10-14 | 300-450 | Execution summaries, full approval gates, error handling refs |
+| **Heavy** | Complex/Process Agent | 4-5 | 14-18 | 450-600 | Detailed steps, adaptive depth, error handling, repair judgment tree |
+
+### PACKAGING Phase Generation Guide
+
+For Complex agents, include Phase 5: PACKAGING in the generated core-workflow:
+- P1: Plugin Structure Generation (ALWAYS) — plugin.json, agents, skills, commands
+- P2: Automated Validation (ALWAYS) — 3-layer testing for 4 agent types
+- P3: Migration Execution (CONDITIONAL) — legacy structure migration
+
+For Simple/Task agents, PACKAGING may be omitted if user prefers policy-only output.
 
 #### Step 3: Present Plan for Approval
 **Action**: Present the generation plan to user

@@ -2,27 +2,149 @@
 
 ## ディレクトリ構造の統一パターン
 
-### 生成されるポリシーの標準構造
-
-生成対象のエージェントには以下の構造を生成する:
+### ポリシーファイルの標準構造
 
 ```text
 .<agent-name>/
-├── aws-aidlc-rules/
+├── <agent-name>-rules/
 │   └── core-workflow.md
-└── aws-aidlc-rule-details/
+└── <agent-name>-rule-details/
     ├── common/
     ├── <phase-1>/
-    ├── <phase-2>/
     └── <phase-N>/
 ```
 
-### この構造を採用する理由
+### プラグイン構造（PACKAGING Phase出力）
 
-- AWS AI-DLC と同じパターンで統一し、ツール間の互換性を確保
-- `aws-aidlc-rules/` にはワークフローの全体像（core-workflow.md）のみ配置
-- `aws-aidlc-rule-details/` にはフェーズ別・共通の詳細ルールを配置
-- エントリポイントが明確で、段階的なルール読み込みが可能
+```text
+<agent-name>/
+├── .claude-plugin/
+│   ├── plugin.json
+│   └── marketplace.json
+├── agents/
+├── skills/
+│   └── <skill-name>/SKILL.md
+├── commands/
+├── rules/
+└── <agent-name>-rule-details/
+```
+
+---
+
+## スキル設計10パターン（Domain Research由来）
+
+高品質なClaude Codeスキルに共通する設計パターン:
+
+| # | パターン | 内容 | 適用先 |
+|---|---------|------|--------|
+| 1 | 明示的アクティベーショントリガー | ユーザーがどう呼び出すか明確に定義 | SKILL.md冒頭 |
+| 2 | 4-5個の記憶しやすいコアルール | 中核的な行動指針を簡潔に列挙 | SKILL.md, welcome-message |
+| 3 | Quality Gate | 品質基準の明示と自動チェック | quality-standards, SKILL.md |
+| 4 | 番号付きワークフロー | フェーズ・ステージに番号を振り順序を明示 | core-workflow, process-overview |
+| 5 | アンチパターンセクション | やってはいけないことを明示 | overconfidence-prevention |
+| 6 | コンテンツ密度制限 | ファイル種別ごとの行数ガイドライン | content-validation |
+| 7 | クロススキル参照 | 関連スキルへの参照を明示 | implementation-knowhow |
+| 8 | ツール/MCP連携の明示 | 使用するMCPツールとフォールバックを定義 | domain-research, SKILL.md |
+| 9 | グレースフルデグラデーション | ツール不在時のフォールバック手順 | error-handling |
+| 10 | エビデンスファースト | スコアカードにEvidence列を必須化 | quality-standards |
+
+---
+
+## プラグイン構造ガイド
+
+### plugin.json の必須フィールド
+
+```json
+{
+  "name": "<agent-name>",
+  "version": "1.0.0",
+  "description": "...",
+  "agents": ["agents/*.md"],
+  "skills": ["skills/*/SKILL.md"],
+  "commands": ["commands/*.md"],
+  "rules": ["rules/*.md"]
+}
+```
+
+### marketplace.json の形式
+
+```json
+{
+  "displayName": "...",
+  "description": "...",
+  "tags": ["steering-policy", "..."],
+  "author": "...",
+  "autoUpdate": true
+}
+```
+
+### SKILL.md 設計ガイド（75-150行）
+
+SKILL.mdは簡潔なエントリポイント。詳細はrule-detailsに委譲する。
+
+**必須セクション**:
+1. **Activation Trigger** — いつこのスキルが呼び出されるか
+2. **Core Rules** — 4-5個の中核ルール
+3. **Workflow Summary** — フェーズ/ステージの概要
+4. **Quality Gate** — 最低品質基準
+5. **References** — rule-detailsへのパス
+
+**アンチパターン**:
+- SKILL.mdに全ワークフロー詳細を書く（→ rule-detailsに委譲）
+- 150行を超える（→ 分割が必要）
+- rule-detailsへの参照がない（→ 実行時にルールが読み込まれない）
+
+### エージェント定義設計
+
+エージェントは責務で分割する:
+
+| エージェント | 責務 | 使用フェーズ |
+|------------|------|-----------|
+| Orchestrator | ワークフロー全体の調整、状態管理 | 全フェーズ |
+| Domain Researcher | ドメイン調査、ベストプラクティス収集 | DISCOVERY |
+| Policy Generator | ポリシーファイル生成 | GENERATION |
+| Quality Reviewer | 品質検証、スコアリング | REFINEMENT |
+
+### コマンド定義パターン
+
+```markdown
+---
+name: <prefix>:<command-name>
+description: ...
+---
+
+# Command: <command-name>
+
+## Execution
+1. [手順]
+2. [手順]
+```
+
+典型的なコマンド:
+- `new-policy` — 新規ポリシー生成開始
+- `resume-policy` — 中断されたポリシー生成を再開
+- `validate-policy` — 既存ポリシーの品質検証
+
+---
+
+## マイグレーションガイド
+
+### レガシー構造 → プラグイン構造
+
+1. GENERATION/REFINEMENTで改善済みファイルを `<agent-name>-rule-details/` にコピー
+2. プラグイン固有ファイル（plugin.json, agents/, skills/, commands/）を新規生成
+3. CLAUDE.md等の参照パスを更新
+4. レガシーディレクトリに `DEPRECATED` 注記を追加（**削除はしない**）
+
+### パスマッピング例
+
+| 旧パス | 新パス |
+|--------|--------|
+| `.steering/aws-aidlc-rules/core-workflow.md` | `<agent>/rules/core-workflow.md` |
+| `.steering/aws-aidlc-rule-details/common/` | `<agent>/<agent>-rule-details/common/` |
+| `.steering/aws-aidlc-rule-details/<phase>/` | `<agent>/<agent>-rule-details/<phase>/` |
+
+---
 
 ## ポリシー生成時の教訓
 
@@ -30,57 +152,31 @@
 
 - Purpose Analysis で対象エージェントの本質を正確に捉えることが全体品質を決める
 - ドメインリサーチは省略せず、最低でも Standard 深度で実施する
-- 利用者の暗黙の期待を明示化する質問を必ず行う
-
-### Design フェーズでの注意点
-
-- ワークフローアーキテクチャは対象エージェントの型（Process/Task/Analytical/Hybrid）に合わせる
-- 共通ルール（common/）は全フェーズで一貫して参照されるよう設計する
-- フェーズ間の依存関係を明示的にマッピングする
+- MCP連携: Context7→公式ドキュメント、Exa→Web調査、gh search→実装例
+- ツール不在時はユーザーへの直接質問にフォールバック
 
 ### Generation フェーズでの注意点
 
 - core-workflow.md 内のすべてのファイル参照が実ファイルに解決されることを検証する
 - 共通ルールファイルは対象ドメインに適応させてから生成する（テンプレートのコピーではない）
-- 2オプション完了メッセージのパターンを統一する
+- ドメインコンテンツ注入ヒューリスティクス（G3の5ステップ）を必ず実行する
+- ドメイン特化率40%未満のファイルは追加注入対象としてフラグする
 
 ### Refinement フェーズでの注意点
 
-- AI-DLC の 11 品質次元すべてを評価する
-- 完全性レビューでは「すべてのワークフローパスに対応するルールファイルがあるか」を確認
-- 一貫性レビューでは用語集（terminology.md）との整合性を確認
-
-## バージョン管理との連携
-
-- `.aidlc/` のルールは upstream (`awslabs/aidlc-workflows`) と同期する
-- `.steering/` のルールはこのプロジェクト独自だが、AI-DLC の品質基準に準拠する
-- Extensions 機構（v0.1.7）も `.steering/` 側で同等の仕組みを導入可能
+- 15品質次元すべてを定量的にエビデンス付きで評価する
+- 修復判断ツリーに従い、FAIL時の戻り先を自動ルーティングする
+- 修復ループは最大3回。同一ターゲット2回でユーザーエスカレーション
 
 ## パス参照のルール
 
 ### core-workflow.md 内の参照
 
-- 自ディレクトリの `aws-aidlc-rule-details/` を参照する
-- 例: `.steering/aws-aidlc-rule-details/common/welcome-message.md`
+- `rule-details/` ディレクトリ内の相対パスで参照する
+- 例: `common/welcome-message.md`, `discovery/purpose-analysis.md`
 
-### 過去の命名からの移行
-
-以下の古いパスは使用しない:
-
-- `.steering/steering-rule-details/` → `.steering/aws-aidlc-rule-details/` に統一済み
-
-## ルーティングとCLAUDE.mdの連携
-
-### 2つのコンテキストの分離
+### ルーティングとCLAUDE.mdの連携
 
 - リポジトリ改善 → `.aidlc/` ルールで駆動
-- ポリシー生成 → `.steering/` ルールで駆動
+- ポリシー生成 → `skills/generate/` ルールで駆動
 - CLAUDE.md に判定テーブルを記載し、依頼内容に応じて自動選択
-
-### 新しいルールセットの追加手順
-
-1. `.<name>/aws-aidlc-rules/core-workflow.md` を作成
-2. `.<name>/aws-aidlc-rule-details/common/` に共通ルールを配置
-3. フェーズ別サブディレクトリを作成
-4. CLAUDE.md のルーティングテーブルに追加
-5. `.claude/rules/routing-<name>.md` にGlobルールを追加

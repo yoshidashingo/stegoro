@@ -421,7 +421,7 @@ The next phase is **[Next Phase Name]**: [Brief description of what the next pha
 - Directory: `.[agent-name]/`
 - Total files: [N]
 - Total lines: [N]
-- Quality calibration: [X/11 dimensions PASS]
+- Quality calibration: [X/15 dimensions PASS]
 
 **Contents:**
 - Core workflow: `[agent-name]-rules/core-workflow.md`
@@ -435,4 +435,101 @@ The next phase is **[Next Phase Name]**: [Brief description of what the next pha
 3. Iterate on any rules that need adjustment
 
 ---
+```
+
+---
+
+## Content Depth Guidance
+
+Generated file depth should match the target agent's complexity:
+
+| Depth | Target | Section Structure | Examples | Templates |
+|-------|--------|-------------------|----------|-----------|
+| **Light** | Simple / Task Agent | Purpose, Steps (overview), Completion Message | 0-1 | Optional |
+| **Medium** | Standard Agent | Purpose, Prerequisites, Steps (detailed), Examples, Completion Message, Error Handling | 1-2 | Recommended |
+| **Heavy** | Complex / Process Agent | Purpose, Prerequisites, Steps (detailed + substeps), Examples (GOOD/BAD), Completion Message, Error Handling, References | 2+ | Required |
+
+### Line Count Guidelines by File Type
+
+| File Type | Light | Medium | Heavy |
+|-----------|-------|--------|-------|
+| SKILL.md | 75-90 | 90-120 | 120-150 |
+| core-workflow.md | 200-300 | 300-450 | 450-600 |
+| Phase Rule file | 100-150 | 150-250 | 250-300 |
+| Common Rule file | 50-100 | 100-150 | 150-200 |
+
+---
+
+## Plugin File Patterns
+
+### SKILL.md Pattern (75-150 lines)
+
+```markdown
+---
+name: <skill-name>
+description: <one-line description>
+---
+
+## Activation Trigger
+[When this skill is invoked]
+
+## Core Rules
+1. [Rule 1]
+2. [Rule 2]
+...
+
+## Workflow Summary
+[Phase/stage overview with references to rule-details/]
+
+## Quality Gate
+[Minimum quality criteria]
+
+## References
+- `rule-details/core-workflow.md` — Full workflow
+- `rule-details/common/` — Common rules
+```
+
+### plugin.json Pattern
+
+```json
+{
+  "name": "<agent-name>",
+  "version": "1.0.0",
+  "description": "...",
+  "agents": ["agents/*.md"],
+  "skills": ["skills/*/SKILL.md"],
+  "commands": ["commands/*.md"],
+  "rules": ["rules/*.md"]
+}
+```
+
+### Agent Definition Pattern
+
+```markdown
+---
+name: <agent-name>
+description: <one-line description>
+---
+
+## Role
+[Agent's responsibility]
+
+## Capabilities
+[What this agent can do]
+
+## Workflow Integration
+[Which phases/stages this agent handles]
+```
+
+### Command Definition Pattern
+
+```markdown
+---
+name: <prefix>:<command-name>
+description: <one-line description>
+---
+
+## Execution
+1. [Step 1]
+2. [Step 2]
 ```

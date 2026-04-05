@@ -1,7 +1,7 @@
 # Quality Calibration — REFINEMENT Phase
 
 ## Purpose
-Calibrate the generated steering policy set against the AI-DLC reference implementation's 11 quality dimensions. This is the final quality gate — it ensures the generated policy set meets the same quality standard as the proven AI-DLC system (~26 files, ~4,500 lines).
+Calibrate the generated steering policy set against the AI-DLC reference implementation's 15 quality dimensions (11 standard + 4 domain-specific). This is the final quality gate — it ensures the generated policy set meets the same quality standard as the proven AI-DLC system (~26 files, ~4,500 lines).
 
 ## Prerequisites
 - Completeness Review completed and passed
@@ -215,19 +215,23 @@ This stage always executes as it's the definitive quality validation for the gen
 ## Calibration Date: [ISO timestamp]
 ## Reference: AI-DLC v1.0 (~26 files, ~4,500 lines)
 
-| # | Dimension | Score | Evidence | AI-DLC Comparison |
-|---|-----------|-------|----------|--------------------|
-| 1 | Adaptive Workflow | PASS/PARTIAL/FAIL | [evidence] | [comparison] |
-| 2 | Mandatory Checkpoints | PASS/PARTIAL/FAIL | [evidence] | [comparison] |
-| 3 | Question File Format | PASS/PARTIAL/FAIL | [evidence] | [comparison] |
-| 4 | Content Validation | PASS/PARTIAL/FAIL | [evidence] | [comparison] |
-| 5 | Audit Trail | PASS/PARTIAL/FAIL | [evidence] | [comparison] |
-| 6 | Error Handling | PASS/PARTIAL/FAIL | [evidence] | [comparison] |
-| 7 | Overconfidence Prevention | PASS/PARTIAL/FAIL | [evidence] | [comparison] |
-| 8 | Depth Levels | PASS/PARTIAL/FAIL | [evidence] | [comparison] |
-| 9 | Session Continuity | PASS/PARTIAL/FAIL | [evidence] | [comparison] |
-| 10 | Terminology | PASS/PARTIAL/FAIL | [evidence] | [comparison] |
-| 11 | Completion Messages | PASS/PARTIAL/FAIL | [evidence] | [comparison] |
+| # | Dimension | Score | Evidence | Action |
+|---|-----------|-------|----------|--------|
+| 1 | Adaptive Workflow | PASS/PARTIAL/FAIL | [evidence] | [none/repair→target] |
+| 2 | Mandatory Checkpoints | PASS/PARTIAL/FAIL | [evidence] | |
+| 3 | Question File Format | PASS/PARTIAL/FAIL | [evidence] | |
+| 4 | Content Validation | PASS/PARTIAL/FAIL | [evidence] | |
+| 5 | Audit Trail | PASS/PARTIAL/FAIL | [evidence] | |
+| 6 | Error Handling | PASS/PARTIAL/FAIL | [evidence] | |
+| 7 | Overconfidence Prevention | PASS/PARTIAL/FAIL | [evidence] | |
+| 8 | Depth Levels | PASS/PARTIAL/FAIL | [evidence] | |
+| 9 | Session Continuity | PASS/PARTIAL/FAIL | [evidence] | |
+| 10 | Terminology Standardization | PASS/PARTIAL/FAIL | [evidence] | |
+| 11 | Standardized Completion Messages | PASS/PARTIAL/FAIL | [evidence] | |
+| 12 | Domain Specificity Rate | PASS/PARTIAL/FAIL | [N% per file] | |
+| 13 | Example Coverage | PASS/PARTIAL/FAIL | [N examples/file] | |
+| 14 | Artifact Template Completeness | PASS/PARTIAL/FAIL | [N/M = X%] | |
+| 15 | Pitfall Reference Rate | PASS/PARTIAL/FAIL | [N/M = X%] | |
 
 ## Quantitative Comparison
 | Metric | Generated | AI-DLC Reference | Status |
@@ -239,16 +243,16 @@ This stage always executes as it's the definitive quality validation for the gen
 | Phase Rule Files | [N] | 14 | [OK/LOW/HIGH] |
 
 ## Overall Score
-- **PASS**: [N]/11
-- **PARTIAL**: [N]/11
-- **FAIL**: [N]/11
+- **PASS**: [N]/15
+- **PARTIAL**: [N]/15
+- **FAIL**: [N]/15
 
 ## Verdict: [APPROVED / CONDITIONAL APPROVAL / NEEDS REMEDIATION]
 
 ### Approval Criteria:
-- APPROVED: All 11 dimensions PASS
-- CONDITIONAL APPROVAL: 9+ PASS, remainder PARTIAL, none FAIL
-- NEEDS REMEDIATION: Any FAIL, or 3+ PARTIAL
+- APPROVED: 15/15 PASS → proceed to PACKAGING
+- CONDITIONAL APPROVAL: 13+ PASS, FAIL only in Dim 12-15 → user decides
+- NEEDS REMEDIATION: <=12 PASS, or any Dim 1-11 FAIL → repair loop
 ```
 
 ### Step 14: Handle Calibration Failures
@@ -276,11 +280,88 @@ This stage always executes as it's the definitive quality validation for the gen
 
 ---
 
+## Domain-Specific Dimensions (Dim 12-15)
+
+### Step 16: Score Dim 12 — Domain Specificity Rate
+**Measurement**: For each Phase Rule file, count domain-specific lines ÷ (total - blank - heading lines)
+**Threshold**: >= 40% per file
+**Evidence**: File-by-file percentage from R2 Consistency Review heatmap
+
+### Step 17: Score Dim 13 — Example Coverage
+**Measurement**: Count GOOD/BAD example blocks per Phase Rule file
+**Threshold**: >= 2 examples per file
+**Evidence**: File-by-file example count
+
+### Step 18: Score Dim 14 — Artifact Template Completeness
+**Measurement**: Count output-producing files with template blocks ÷ total output-producing files
+**Threshold**: = 100%
+**Evidence**: File list with template presence
+
+### Step 19: Score Dim 15 — Pitfall Reference Rate
+**Measurement**: Error handling items citing domain-research pitfalls ÷ total error items
+**Threshold**: >= 50%
+**Evidence**: Item-by-item citation check
+
+---
+
+## Repair Judgment Tree
+
+When any dimension FAIL, route to the appropriate stage for repair:
+
+| FAIL Dimension | Classification | Return To |
+|---------------|---------------|-----------|
+| Dim 1 (Adaptive Workflow) | Design | E1 |
+| Dim 2, 5, 9 | Structure | G1 |
+| Dim 3, 4, 6, 7, 8, 11, 12, 13, 15 | Content | G3 |
+| Dim 10 | Content | G2 |
+| Dim 14 | Content | G2 or G3 |
+| Quality dimension definition itself | Criteria | E4 |
+
+### Repair Loop Control
+
+| Rule | Limit |
+|------|-------|
+| Max repair loops | 3 total across workflow |
+| Same-target limit | 2nd return to same stage → user escalation |
+| Escalation message | "Repair loop #{N}. Choose: A) Continue, B) Abort (with quality note), C) Rescope" |
+| History tracking | Record in steering-state.md: `[timestamp] Loop #[N]: [Source] → [Target]: [Reason] (Dim [N])` |
+
+### Escalation Template
+
+```markdown
+### ESCALATION REQUIRED
+
+**Repair loop has reached [N] iterations.**
+
+Current FAIL: Dim [N] ([Name]) — Score: [value] (threshold: [threshold])
+
+Repair history:
+- Loop #1: [Source] → [Target]: [Reason]
+- Loop #2: [Source] → [Target]: [Reason]
+
+**Choose:**
+**A) Continue** — retry with same approach
+**B) Abort** — deliver with quality note attached
+**C) Rescope** — adjust quality target or scope
+```
+
+---
+
+## 15-Dimension Approval Criteria
+
+| Verdict | Condition | Action |
+|---------|-----------|--------|
+| **APPROVED** | 15/15 PASS | Proceed to PACKAGING |
+| **CONDITIONAL APPROVAL** | 13+ PASS, FAIL only Dim 12-15 | User decides: proceed or remediate |
+| **NEEDS REMEDIATION** | <=12 PASS, or any Dim 1-11 FAIL | Repair loop via judgment tree |
+
+---
+
 ## Output Artifacts
 
 ### Quality Calibration Scorecard
 - **File**: `steering-docs/refinement/quality-calibration-scorecard.md`
-- **Content**: Complete 11-dimension scoring with evidence and AI-DLC comparison
+- **Content**: Complete 15-dimension scoring with evidence
 
 ---
 
@@ -290,9 +371,9 @@ This stage always executes as it's the definitive quality validation for the gen
 
 **Quality Calibration is complete.** Here's the final scorecard:
 
-- **Dimensions PASS**: [N]/11
-- **Dimensions PARTIAL**: [N]/11
-- **Dimensions FAIL**: [N]/11
+- **Dimensions PASS**: [N]/15
+- **Dimensions PARTIAL**: [N]/15
+- **Dimensions FAIL**: [N]/15
 - **Verdict**: [APPROVED / CONDITIONAL APPROVAL / NEEDS REMEDIATION]
 
 Dimension scores:
@@ -332,7 +413,7 @@ Dimension scores:
 - **Directory**: `.[agent-name]/`
 - **Total Files**: [N]
 - **Total Lines**: [N]
-- **Quality Score**: [N]/11 dimensions PASS
+- **Quality Score**: [N]/15 dimensions PASS
 - **Verdict**: [APPROVED / CONDITIONAL APPROVAL]
 
 **Contents:**
@@ -355,7 +436,7 @@ Dimension scores:
 **Summary of outputs:**
 - Completeness Review: [PASS/FAIL]
 - Consistency Review: [N]% consistency score
-- Quality Calibration: [N]/11 dimensions PASS — [VERDICT]
+- Quality Calibration: [N]/15 dimensions PASS — [VERDICT]
 
 ---
 

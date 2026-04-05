@@ -304,6 +304,30 @@ Focus on quality validation:
 - What calibration adjustments are needed?
 - Any user-specific quality requirements?
 
+#### PACKAGING Phase Questions
+Focus on plugin structure and migration:
+- What plugin structure is appropriate?
+- Which skills/commands should be exposed?
+- Is migration from an existing structure needed?
+
+#### Repair Loop Escalation Questions
+When repair loop limits are reached, use this template:
+
+```markdown
+## Escalation: Repair Loop #{N}
+
+The repair loop has reached its limit. Current FAIL dimension: [Dim N: Name] (Score: [value]).
+
+### What would you like to do?
+
+A) Continue — retry the same repair approach
+B) Abort — deliver with current quality (quality note will be attached)
+C) Rescope — adjust quality target or scope to resolve the issue
+D) Other (please describe after [Answer]: tag below)
+
+[Answer]:
+```
+
 ## Summary
 
 **Remember**:

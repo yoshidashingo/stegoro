@@ -14,22 +14,33 @@ This stage always executes but depth varies based on domain familiarity and comp
 
 ## Adaptive Depth
 
+### MCP Tool Integration
+
+When conducting domain research, use available MCP tools in this priority order:
+1. **Context7** → Official documentation lookup (library/framework docs)
+2. **Exa** → Web research for best practices, patterns, real-world examples
+3. **gh search** → Existing implementation examples on GitHub
+4. **Fallback**: If MCP tools are unavailable, ask user directly for domain knowledge, references, and standards
+
 ### Minimal Depth
 **When**: Well-known domain with clear, established best practices
 **Examples**: Code review, linting, simple documentation generation
 **Scope**: Core best practices, major pitfalls only
+**Minimum Research Items**: 3 (best practices >=2, pitfalls >=1)
 **Expected Output**: ~1 page summary
 
 ### Standard Depth
 **When**: Domain with some nuance requiring targeted research
 **Examples**: Security auditing, API design review, test strategy planning
 **Scope**: Best practices + standards + common pitfalls + quality criteria
+**Minimum Research Items**: 7 (best practices >=3, pitfalls >=2, standards >=2)
 **Expected Output**: ~2-3 page summary
 
 ### Comprehensive Depth
 **When**: Novel, specialized, or high-risk domain
 **Examples**: Medical device compliance, financial regulation auditing, safety-critical systems
 **Scope**: Full research covering all categories with references and evidence
+**Minimum Research Items**: 12 (best practices >=5, pitfalls >=3, standards >=2, design patterns >=2)
 **Expected Output**: ~4-5 page summary with references
 
 ---

@@ -60,7 +60,39 @@ From the Phase Rules Design document, review:
 - Error scenarios
 - Completion message design
 
-##### 3b. Generate Content Following Standard Pattern
+##### 3b. Domain Content Injection Heuristics (5 Steps)
+
+**CRITICAL**: This is the core mechanism for ensuring domain specificity (Dim 12 >= 40%).
+
+```
+Step 3b-1: Load Domain Research Summary
+  - Extract best practices, pitfalls, standards, terminology
+
+Step 3b-2: Map domain content to file sections
+  - Execution Steps → domain-specific actions, checks, procedures
+  - Examples → GOOD/BAD examples derived from best practices / pitfalls
+  - Error Handling → pitfall-derived error scenarios
+
+Step 3b-3: Measure domain specificity rate per file
+  - Count lines containing terminology.md terms ÷ total content lines
+  - Target: >= 40% per Phase Rule file
+
+Step 3b-4: Flag files below 40% for additional injection
+  - Mark under-threshold files for Step 3b-5
+
+Step 3b-5: Inject additional domain content into flagged files
+  - Add more specific examples from Domain Research
+  - Add domain-specific procedures and checks
+  - Add pitfall-derived error scenarios
+  - Re-measure after injection
+```
+
+**Minimum Requirements per Phase Rule File**:
+- >= 2 GOOD/BAD examples (Dim 13)
+- >= 40% domain specificity rate (Dim 12)
+- Error handling references domain pitfalls (Dim 15 >= 50%)
+
+##### 3c. Generate Content Following Standard Pattern
 Use the Phase Rule File Pattern from `common/output-structure-patterns.md`:
 
 ```markdown

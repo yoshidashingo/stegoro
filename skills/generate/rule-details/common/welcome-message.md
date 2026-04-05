@@ -15,10 +15,10 @@ The SPM is a meta-agent that creates steering policies for other AI agents. Thin
 - **Analyzes your agent's purpose** and asks clarifying questions to understand the domain
 - **Designs an optimal workflow structure** based on your agent's type and complexity
 - **Generates comprehensive rule files** covering every aspect of the agent's behavior
-- **Validates everything** against proven quality standards (the AI-DLC benchmark)
-- **Guides you through each phase** with clear checkpoints and approval gates
+- **Validates everything** against 15 quality dimensions
+- **Packages as a plugin** for easy distribution and installation
 
-## The Four-Phase Process
+## The Five-Phase Process
 
 ```
                          Your Purpose
@@ -67,67 +67,46 @@ The SPM is a meta-agent that creates steering policies for other AI agents. Thin
         +=======================================+
                               |
                               v
-                    Policy Set Complete
+        +=======================================+
+        |     PACKAGING PHASE                   |
+        |     Plugin & Delivery                 |
+        +=======================================+
+        | * Plugin Structure Generation (ALWAYS) |
+        | * Automated Validation (ALWAYS)        |
+        | * Migration Execution (CONDITIONAL)    |
+        +=======================================+
+                              |
+                              v
+                       Delivery
 ```
 
-### Phase Breakdown:
+## 5 Core Rules
 
-**DISCOVERY PHASE** — *Understanding & Research*
-- **Purpose**: Understand WHAT agent to create policies for and WHY
-- **Activities**: Analyze your purpose, research the domain, identify stakeholders, define scope
-- **Output**: Agent classification, domain knowledge, scope definition
-- **Your Role**: Describe your agent's purpose, answer clarifying questions, approve findings
+1. **Discovery before Design** — Never start designing without purpose analysis and domain research
+2. **Approval gates at every stage** — You review and approve at every major checkpoint
+3. **Domain specificity > 40%** — Generated content must be at least 40% domain-specific, not generic templates
+4. **15-dimension quality target** — All policy sets are calibrated against 15 quality dimensions
+5. **Overconfidence prevention** — When domain knowledge is uncertain, we ask rather than assume
 
-**DESIGN PHASE** — *Architecture & Planning*
-- **Purpose**: Design HOW the policy set should be structured
-- **Activities**: Design workflow, select common rules, design phase rules, plan quality mechanisms
-- **Output**: Complete architectural blueprint for the policy set
-- **Your Role**: Review designs, approve architecture, provide domain-specific preferences
+## Getting Started
 
-**GENERATION PHASE** — *File Creation*
-- **Purpose**: CREATE the actual steering policy files
-- **Activities**: Generate core workflow, common rules, phase rules, validate integration
-- **Output**: Complete set of production-ready steering policy files
-- **Your Role**: Review generated files, request changes, approve content
+**New Policy Creation**: Tell me about the AI agent you'd like to create steering policies for. I'll start with Purpose Analysis to understand your agent's type, domain, and complexity.
 
-**REFINEMENT PHASE** — *Quality Assurance*
-- **Purpose**: Ensure the policy set meets AI-DLC-level quality
-- **Activities**: Check completeness, verify consistency, calibrate against 11 quality dimensions
-- **Output**: Quality-validated policy set ready for use
-- **Your Role**: Review quality reports, approve final deliverables
+**Brush Up Existing Policies**: If you already have a steering policy set that needs improvement, tell me about it and I'll analyze the existing structure before planning improvements.
 
 ## What You'll Get
 
-The SPM will generate a complete steering policy set for your agent, including:
-
-- **Core Workflow** — A master orchestrator that guides the agent through its entire process
-- **Common Rules** — Cross-phase rules for questions, validation, errors, session management, etc.
+- **Core Workflow** — A master orchestrator guiding the agent through its entire process
+- **Common Rules** — Cross-phase rules for questions, validation, errors, session management
 - **Phase-Specific Rules** — Detailed rules for each stage of the agent's workflow
-- **Quality Mechanisms** — Built-in quality assurance based on 11 proven dimensions
+- **Quality Mechanisms** — Built-in quality assurance based on 15 dimensions
+- **Plugin Package** — Ready-to-install Claude Code plugin with skills and commands
 
-The generated files follow the same quality standards as the AI-DLC (AI-Driven Development Life Cycle) — a proven reference implementation with 26+ files and ~4,500 lines of comprehensive steering policy content.
+## Your Role
 
-## Key Principles
-
-- **Adaptive**: The process adapts to your agent's type and complexity
-- **Comprehensive**: Complex agents get thorough treatment; simple agents stay focused
-- **Transparent**: You see and approve everything before it's finalized
-- **Quality-First**: All output is calibrated against proven quality benchmarks
-- **User-Controlled**: You can request changes at every checkpoint
-
-## What Happens Next
-
-1. **I'll analyze your purpose** — Tell me what AI agent you want to create policies for
-2. **I'll research the domain** — Understand best practices and potential pitfalls
-3. **I'll design the architecture** — Create a blueprint for your policy set
-4. **You'll review and approve** — At every major checkpoint
-5. **I'll generate the files** — Complete, production-ready steering policies
-6. **I'll validate quality** — Against 11 proven quality dimensions
-
-The process adapts to:
-- Your agent's type (Process, Task, Analytical, or Hybrid)
-- Your domain's complexity and risk profile
-- The number of stakeholders involved
-- Your quality requirements
+- **Answer questions** in dedicated question files using [Answer]: tags
+- **Review and approve** each phase before proceeding
+- **Provide domain expertise** when needed
+- **Request changes** at any checkpoint — you're always in control
 
 **Let's begin! Tell me about the AI agent you'd like to create steering policies for.**
