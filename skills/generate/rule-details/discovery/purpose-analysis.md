@@ -133,7 +133,7 @@ For each agent type, verify these type-specific characteristics:
 
 **IMPORTANT**: Follow the overconfidence prevention guide (`common/overconfidence-prevention.md`). When in doubt, ASK.
 
-Create `steering-docs/discovery/purpose-analysis-questions.md` if ANY of these are true:
+Create `steering-docs/<agent-name>/discovery/purpose-analysis-questions.md` if ANY of these are true:
 - Agent type classification is not clearly one type (score tie or close scores)
 - Core capabilities list has uncertainties
 - Complexity assessment has mixed signals
@@ -192,7 +192,7 @@ E) Other (please describe after [Answer]: tag below)
 ## Output Artifacts
 
 ### Purpose Analysis Summary
-- **File**: `steering-docs/discovery/purpose-analysis-summary.md`
+- **File**: `steering-docs/<agent-name>/discovery/purpose-analysis-summary.md`
 - **Content**: Agent classification, capabilities, complexity assessment, reasoning
 - **Format**:
 

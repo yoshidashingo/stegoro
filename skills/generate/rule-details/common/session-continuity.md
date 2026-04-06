@@ -22,9 +22,19 @@ B) Review a previous stage ([Show available stages])
 [Answer]:
 ```
 
+## MANDATORY: Working Directory Isolation
+
+Each target agent's working artifacts are stored in an isolated directory:
+- **Working directory**: `steering-docs/<agent-name>/`
+- **State file**: `steering-docs/<agent-name>/steering-state.md`
+- **Audit file**: `steering-docs/<agent-name>/audit.md`
+- **Phase artifacts**: `steering-docs/<agent-name>/<phase-name>/`
+
+When resuming, scan `steering-docs/` for subdirectories containing `steering-state.md` to discover resumable sessions.
+
 ## MANDATORY: Session Continuity Instructions
 
-1. **Always read steering-state.md first** when detecting existing project
+1. **Scan for existing sessions** — look for `steering-docs/*/steering-state.md` files. If multiple found, present list and let user choose.
 2. **Parse current status** from the state file to populate the prompt
 3. **MANDATORY: Load Previous Stage Artifacts** — Before resuming any stage, automatically read all relevant artifacts from previous stages:
    - **Purpose Analysis**: Read purpose-analysis results, agent classification

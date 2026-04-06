@@ -288,7 +288,7 @@ For each of the 15 dimensions:
 ## Output Artifacts
 
 ### Integration Validation Report
-- **File**: `steering-docs/generation/integration-validation-report.md`
+- **File**: `steering-docs/<agent-name>/generation/integration-validation-report.md`
 - **Content**: Complete validation results across all categories
 - **Format**:
 

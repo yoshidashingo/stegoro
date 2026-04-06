@@ -215,7 +215,7 @@ Generate (as applicable):
 - **Expected Size**: 200-500 lines depending on complexity
 
 ### Generation Plan
-- **File**: `steering-docs/generation/core-workflow-generation-plan.md`
+- **File**: `steering-docs/<agent-name>/generation/core-workflow-generation-plan.md`
 - **Content**: Detailed plan with checkboxes tracking progress
 
 ---

@@ -174,7 +174,7 @@ Select quality level based on:
 **Input**: Scope summary with uncertainties
 **Output**: Scope question file
 
-Create `steering-docs/discovery/scope-definition-questions.md` if:
+Create `steering-docs/<agent-name>/discovery/scope-definition-questions.md` if:
 - Boundary decisions could reasonably go either way
 - File count or structure has multiple valid options
 - Quality level needs user preference input
@@ -190,7 +190,7 @@ Create `steering-docs/discovery/scope-definition-questions.md` if:
 ## Output Artifacts
 
 ### Scope Definition Document
-- **File**: `steering-docs/discovery/scope-definition.md`
+- **File**: `steering-docs/<agent-name>/discovery/scope-definition.md`
 - **Content**: Complete scope with boundaries, estimates, and structure
 - **Format**:
 

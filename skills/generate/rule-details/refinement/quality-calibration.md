@@ -360,7 +360,7 @@ Repair history:
 ## Output Artifacts
 
 ### Quality Calibration Scorecard
-- **File**: `steering-docs/refinement/quality-calibration-scorecard.md`
+- **File**: `steering-docs/<agent-name>/refinement/quality-calibration-scorecard.md`
 - **Content**: Complete 15-dimension scoring with evidence
 
 ---

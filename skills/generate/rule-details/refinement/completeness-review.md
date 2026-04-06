@@ -187,7 +187,7 @@ Verify against scope definition targets:
 ## Output Artifacts
 
 ### Completeness Review Report
-- **File**: `steering-docs/refinement/completeness-review-report.md`
+- **File**: `steering-docs/<agent-name>/refinement/completeness-review-report.md`
 - **Content**: Complete results of all completeness checks
 - **Format**:
 

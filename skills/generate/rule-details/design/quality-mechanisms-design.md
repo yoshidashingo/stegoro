@@ -226,7 +226,7 @@ For each error category:
 ## Output Artifacts
 
 ### Quality Mechanisms Design Document
-- **File**: `steering-docs/design/quality-mechanisms-design.md`
+- **File**: `steering-docs/<agent-name>/design/quality-mechanisms-design.md`
 - **Content**: Complete quality mechanisms specification
 - **Format**:
 

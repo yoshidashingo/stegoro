@@ -137,7 +137,7 @@ Consider:
 
 **IMPORTANT**: Follow overconfidence prevention (`common/overconfidence-prevention.md`).
 
-Create `steering-docs/discovery/domain-research-questions.md` if:
+Create `steering-docs/<agent-name>/discovery/domain-research-questions.md` if:
 - Domain is specialized and AI's knowledge may be incomplete
 - User may have domain-specific insights not available through research
 - Regulatory or compliance requirements need user confirmation
@@ -153,7 +153,7 @@ Create `steering-docs/discovery/domain-research-questions.md` if:
 ## Output Artifacts
 
 ### Domain Research Summary
-- **File**: `steering-docs/discovery/domain-research-summary.md`
+- **File**: `steering-docs/<agent-name>/discovery/domain-research-summary.md`
 - **Content**: Best practices, standards, pitfalls, terminology, references
 - **Format**:
 

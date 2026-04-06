@@ -197,7 +197,7 @@ flowchart TD
 **Input**: All design work with decision points
 **Output**: Architecture question file
 
-Create `steering-docs/design/workflow-architecture-questions.md` if:
+Create `steering-docs/<agent-name>/design/workflow-architecture-questions.md` if:
 - Multiple valid phase structures exist
 - Stage classification (ALWAYS vs CONDITIONAL) is debatable
 - Checkpoint placement has trade-offs
@@ -214,7 +214,7 @@ Create `steering-docs/design/workflow-architecture-questions.md` if:
 ## Output Artifacts
 
 ### Workflow Architecture Document
-- **File**: `steering-docs/design/workflow-architecture.md`
+- **File**: `steering-docs/<agent-name>/design/workflow-architecture.md`
 - **Content**: Complete workflow design with phases, stages, dependencies, checkpoints
 - **Format**:
 

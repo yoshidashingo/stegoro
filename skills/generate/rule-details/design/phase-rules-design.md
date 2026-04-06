@@ -146,7 +146,7 @@ Check:
 ## Output Artifacts
 
 ### Phase Rules Design Document
-- **File**: `steering-docs/design/phase-rules-design.md`
+- **File**: `steering-docs/<agent-name>/design/phase-rules-design.md`
 - **Content**: Complete design specifications for all phase rule files
 - **Format**:
 

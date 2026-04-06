@@ -22,10 +22,10 @@ You are now executing the stegoro steering policy generator workflow. This is a 
 You will act as a steering policy generation guide by:
 1. Reading and following the rules in rule-detail files
 2. Asking clarifying questions directly in conversation
-3. Creating deliverables in `steering-docs/`
-4. Tracking progress in `steering-docs/steering-state.md`
+3. Creating deliverables in `steering-docs/<agent-name>/` (isolated per target agent)
+4. Tracking progress in `steering-docs/<agent-name>/steering-state.md`
 5. Waiting for user approval at every approval gate
-6. Maintaining an audit trail in `steering-docs/audit.md`
+6. Maintaining an audit trail in `steering-docs/<agent-name>/audit.md`
 
 ## Rule Detail Files
 
@@ -54,19 +54,22 @@ $ARGUMENTS
 Read and display `rule-details/common/welcome-message.md`.
 
 ### 2. Check for Session Resumption
-If `steering-docs/steering-state.md` exists → read `rule-details/common/session-continuity.md` and resume.
+Check `steering-docs/` for existing agent directories with `steering-state.md`.
+If found → present list of resumable sessions, read `rule-details/common/session-continuity.md` and resume.
 If not → new workflow, proceed to step 3.
 
 ### 3. Load Core Rules
 Read: `rule-details/core-workflow.md`, then common rules as needed.
 
-### 4. Initialize Workspace
-```bash
-mkdir -p steering-docs
-```
-
-### 5. Begin Discovery Phase
+### 4. Begin Discovery Phase
 Read `rule-details/discovery/purpose-analysis.md` and execute.
+
+### 5. Initialize Workspace (after Purpose Analysis)
+Once the target agent name is confirmed:
+```bash
+mkdir -p steering-docs/<agent-name>
+```
+All subsequent artifacts go under `steering-docs/<agent-name>/`.
 
 ### 6. Follow Core Workflow
 Follow `rule-details/core-workflow.md` through all 5 phases (18 stages):
@@ -89,8 +92,8 @@ Follow `rule-details/core-workflow.md` through all 5 phases (18 stages):
 
 1. **Chat-Based Q&A**: Ask questions directly in conversation
 2. **Approval Gates**: Wait for explicit user approval at every stage
-3. **Progress Tracking**: Update `steering-docs/steering-state.md` at every transition
-4. **Audit Trail**: Log decisions in `steering-docs/audit.md` with ISO 8601 timestamps
+3. **Progress Tracking**: Update `steering-docs/<agent-name>/steering-state.md` at every transition
+4. **Audit Trail**: Log decisions in `steering-docs/<agent-name>/audit.md` with ISO 8601 timestamps
 5. **Read Before Execute**: Read the relevant rule-detail file before executing each stage
 6. **Repair Loop**: Max 3 retries, same-target 2x triggers user escalation
 

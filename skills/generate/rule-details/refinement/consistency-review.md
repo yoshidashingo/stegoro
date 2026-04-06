@@ -208,7 +208,7 @@ Verify:
 ## Output Artifacts
 
 ### Consistency Review Report
-- **File**: `steering-docs/refinement/consistency-review-report.md`
+- **File**: `steering-docs/<agent-name>/refinement/consistency-review-report.md`
 - **Content**: Complete audit results and fix summary
 - **Format**:
 

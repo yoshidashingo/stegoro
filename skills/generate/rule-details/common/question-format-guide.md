@@ -9,7 +9,7 @@
 
 #### File Naming Convention
 - Use descriptive names: `{phase-name}-questions.md`
-- Place in the working artifact directory: `steering-docs/{phase-name}/`
+- Place in the working artifact directory: `steering-docs/<agent-name>/{phase-name}/`
 - Examples:
   - `purpose-analysis-questions.md`
   - `domain-research-questions.md`
@@ -144,7 +144,7 @@ C) Maybe
 
 #### Step 1: Create Question File
 ```markdown
-Create steering-docs/{phase-name}/{phase-name}-questions.md with all questions
+Create steering-docs/<agent-name>/{phase-name}/{phase-name}-questions.md with all questions
 ```
 
 #### Step 2: Inform User
@@ -159,7 +159,7 @@ Wait for user to say "done", "completed", "finished", or similar.
 
 #### Step 4: Read and Analyze
 ```
-Read steering-docs/{phase-name}/{phase-name}-questions.md
+Read steering-docs/<agent-name>/{phase-name}/{phase-name}-questions.md
 Extract all answers
 Validate completeness
 Proceed with analysis

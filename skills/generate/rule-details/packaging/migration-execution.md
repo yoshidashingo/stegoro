@@ -138,7 +138,7 @@ This directory has been superseded by the `<agent-name>/` plugin structure.
 ## Output Artifacts
 
 ### Migration Report
-- **File**: `steering-docs/packaging/migration-report.md`
+- **File**: `steering-docs/<agent-name>/packaging/migration-report.md`
 - **Content**: File mapping, copy results, reference updates
 
 ### DEPRECATED.md

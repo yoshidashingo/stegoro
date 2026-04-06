@@ -128,7 +128,7 @@ Verify the workflow is executable for all 4 agent types:
 ## Output Artifacts
 
 ### Validation Report
-- **File**: `steering-docs/packaging/plugin-validation-report.md`
+- **File**: `steering-docs/<agent-name>/packaging/plugin-validation-report.md`
 - **Content**: 3-layer test results with overall PASS/FAIL
 
 ---

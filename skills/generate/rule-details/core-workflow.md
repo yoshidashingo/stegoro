@@ -26,6 +26,25 @@ The AI model intelligently assesses what is needed based on:
 - Load `common/implementation-knowhow.md` for domain-specific implementation patterns
 - Reference these throughout the workflow execution
 
+## MANDATORY: Working Directory Isolation
+**CRITICAL**: Each steering policy creation MUST use an isolated working directory to prevent data mixing across multiple runs.
+
+**Working Directory**: `steering-docs/<agent-name>/`
+
+- `<agent-name>` is determined during Purpose Analysis and used throughout the workflow
+- All working artifacts (state files, question files, plans, reports) go under `steering-docs/<agent-name>/`
+- State file: `steering-docs/<agent-name>/steering-state.md`
+- Audit file: `steering-docs/<agent-name>/audit.md`
+- Phase artifacts: `steering-docs/<agent-name>/<phase-name>/`
+- This isolation ensures multiple concurrent or sequential policy generations do not interfere with each other
+
+**Agent Name Convention**: `<agent-name>` must be lowercase, hyphen-separated, ASCII-only (e.g., `code-reviewer`, `ci-pipeline-manager`). No spaces, slashes, or special characters.
+
+**Initialization**: At the start of Purpose Analysis, create the working directory:
+```bash
+mkdir -p steering-docs/<agent-name>/discovery
+```
+
 ## MANDATORY: Content Validation
 **CRITICAL**: Before creating ANY file, you MUST validate content according to `common/content-validation.md` rules:
 - Validate Mermaid diagram syntax
@@ -71,8 +90,9 @@ The AI model intelligently assesses what is needed based on:
 
 ## Purpose Analysis (ALWAYS EXECUTE)
 
-1. **MANDATORY**: Log initial user request in audit.md with complete raw input
-2. Load all steps from `discovery/purpose-analysis.md`
+1. **MANDATORY**: Determine target agent name from user's request. Create working directory: `mkdir -p steering-docs/<agent-name>/discovery`
+2. **MANDATORY**: Log initial user request in audit.md with complete raw input
+3. Load all steps from `discovery/purpose-analysis.md`
 3. Execute purpose analysis:
    - Analyze user's stated purpose and intent
    - Classify target agent type using **4-type analysis templates** (Process / Task / Analytical / Hybrid)

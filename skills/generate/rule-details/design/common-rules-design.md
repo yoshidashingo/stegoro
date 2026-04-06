@@ -152,7 +152,7 @@ Domain-specific common rules might include:
 ## Output Artifacts
 
 ### Common Rules Design Document
-- **File**: `steering-docs/design/common-rules-design.md`
+- **File**: `steering-docs/<agent-name>/design/common-rules-design.md`
 - **Content**: Complete common rules inventory with adaptation specifications
 - **Format**:
 

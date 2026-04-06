@@ -109,7 +109,7 @@ Resolution approaches:
 **Input**: All analysis with uncertainties
 **Output**: Stakeholder question file
 
-Create `steering-docs/discovery/stakeholder-identification-questions.md` if:
+Create `steering-docs/<agent-name>/discovery/stakeholder-identification-questions.md` if:
 - Stakeholder list may be incomplete
 - Interaction patterns are unclear
 - Conflicts need user input to resolve
@@ -125,7 +125,7 @@ Create `steering-docs/discovery/stakeholder-identification-questions.md` if:
 ## Output Artifacts
 
 ### Stakeholder Map
-- **File**: `steering-docs/discovery/stakeholder-map.md`
+- **File**: `steering-docs/<agent-name>/discovery/stakeholder-map.md`
 - **Content**: Complete stakeholder analysis with interaction patterns
 - **Format**:
 
