@@ -1,0 +1,7 @@
+{
+  "displayName": "Customer Support Agent",
+  "description": "SaaS/Webサービス向けカスタマーサポート対応エージェント。3モード（即時回答/エスカレーション/分析）のHybrid型ワークフローで、PII保護・トーン制御・SLA管理を統合。",
+  "tags": ["steering-policy", "customer-support", "saas", "hybrid-agent", "pii-protection"],
+  "author": "stegoro",
+  "autoUpdate": true
+}
