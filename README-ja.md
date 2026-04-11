@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="docs/assets/logo.png" alt="stegoroロゴ" width="160">
+</p>
+
 <h1 align="center">
   stegoro
   <br><br>
