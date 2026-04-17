@@ -21,6 +21,68 @@ This stage always executes as consistency is essential for the target agent to o
 **Input**: All generated policy files
 **Output**: Complete file set ready for consistency analysis
 
+### Step 1b: Source Contamination Scan (MANDATORY)
+**Action**: 全生成ファイルにソースプロジェクト由来の汚染が残存していないかスキャンする
+**Input**: 全生成ポリシーファイル + Purpose Analysis で確認したソース情報
+**Output**: 汚染スキャンレポート
+
+既存エージェントをベースに新規エージェントのポリシーを生成する場合（例: h2o-bcp-pmoをベースにpmo-agent-khiを生成）、ソースプロジェクト固有の情報が生成物に混入する既知の問題がある（H2O参照混入インシデント）。本ステップはその混入を検出・排除する。
+
+#### スキャン前準備
+
+Purpose Analysis コンテキストから以下を収集する:
+- ソースプロジェクト名・コード（brush-up / 類似生成の場合）
+- 既知の識別子（スペースID、プロジェクトキー、担当者名）
+- 新規生成（ソースなし）の場合 → N/A としてスキャンをスキップ
+
+#### スキャン対象パターン
+
+各生成ファイルに対して以下を検索する:
+
+1. **プロジェクト名・コード参照**: ソースプロジェクトの名称・略称・コード
+   - GOOD: `pmo-agent-khi`の生成物に"H2O"/"BCP"/"sec-9"参照が0件
+   - BAD: `pmo-agent-khi`の生成物が`allowed_spaces: [h2o-space]`を含む
+
+2. **人名参照**: ソースプロジェクト固有の担当者名・連絡先
+   - GOOD: 生成されたテンプレートチケットの担当者が`「未定」`
+   - BAD: ソースプロジェクトの特定人物名がテンプレートに残存
+
+3. **ハードコードされた識別子**: チケットID・ドキュメントID・URL・スペースID
+   - GOOD: `allowed_spaces` がターゲットプロジェクト用の値を参照
+   - BAD: ソースプロジェクトのBacklogスペースIDがそのまま残存
+
+4. **ソース固有の日付・数値**: ソースプロジェクト固有の過去の日付・イベント
+   - GOOD: 例示に使われる日付がターゲットプロジェクトの文脈と整合
+   - BAD: ソースプロジェクトの議事録固有の日付が例示に使われている
+
+#### 汚染スキャンレポート形式
+
+```markdown
+## Source Contamination Scan
+
+**ソースプロジェクト**: [名称、または N/A]
+**スキャン結果**: [CLEAN / CONTAMINATED / N/A]
+
+| パターン | スキャン対象ファイル数 | ヒット数 | 影響ファイル |
+|----------|---------------------|---------|------------|
+| プロジェクト名・コード | [N] | [N] | [ファイル名リスト] |
+| 人名 | [N] | [N] | [ファイル名リスト] |
+| ハードコードID | [N] | [N] | [ファイル名リスト] |
+| ソース固有日付 | [N] | [N] | [ファイル名リスト] |
+
+**判定**: [CLEAN: 次ステップへ / CONTAMINATED: 修正後に再スキャン]
+```
+
+#### 修正手順（CONTAMINATED の場合）
+
+1. 汚染箇所をファイル:行番号で列挙
+2. ソース固有値をターゲットプロジェクト値または汎用プレースホルダーに置換
+3. 影響ファイルを再スキャンしてCLEAN確認
+4. 修正内容を audit.md に記録
+5. **全汚染が解消するまで Step 2 への進行をブロック**
+
+---
+
 ### Step 2: Terminology Consistency Audit
 **Action**: Check terminology usage against terminology.md across all files
 **Input**: All files + terminology.md

@@ -451,6 +451,19 @@ After completing all 4 GENERATION phase stages:
 
 ---
 
+## Red Team Review — REFINEMENT Phase (MANDATORY)
+
+After completing all 3 REFINEMENT phase stages (Completeness + Consistency + Quality Calibration APPROVED):
+1. **MANDATORY**: Load `refinement/red-team-review.md` and execute Red Team review
+   - Launch `oh-my-claudecode:critic` (厳格なRed Teamレビュー) AND `codex:codex-rescue` (定量分析) in parallel
+2. **Review criteria**: ACCEPT (CRITICAL 0, MAJOR ≤ 2) / CONDITIONAL ACCEPT (CRITICAL 0, MAJOR ≥ 3) / REJECT (CRITICAL ≥ 1)
+3. **If REJECT**: Incorporate all Critical findings, revise generated files → return to Completeness Review (R1)
+4. **If CONDITIONAL ACCEPT**: Incorporate Major findings, no re-review needed → proceed to PACKAGING
+5. **MANDATORY**: Log Red Team findings and verdict in audit.md
+6. **Wait for Explicit Approval** (CP-RED): Present Red Team results to user — DO NOT PROCEED until user confirms
+
+---
+
 # PACKAGING PHASE
 
 **Purpose**: Packaging validated policies into Claude Code plugin format

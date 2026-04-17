@@ -209,6 +209,73 @@ Generate `rules/<agent-name>-standards.md` for quality enforcement:
 - Domain-specific quality rules
 - File structure requirements
 
+### Step 7b: Generate CLAUDE.md for Target Project
+
+Generate a `CLAUDE.md` file for the target project repository. This file enforces Red Team review and provides project-level instructions for ongoing agent operations.
+
+**Output location**: `steering-docs/<agent-name>/packaging/CLAUDE.md` (to be copied to the target project root)
+
+**Template**:
+
+```markdown
+# CLAUDE.md
+
+このファイルは、Claude Code がこのリポジトリで作業する際のガイダンスを提供します。
+
+## プロジェクト概要
+
+<Purpose Analysis の目的分析サマリーを1〜2文で記述>
+
+## エントリポイント
+
+`.<agent-name>/<agent-name>-rules/core-workflow.md` を最初に読み込んで指示に従うこと。
+
+## 利用可能なツール
+
+以下のMCPサーバーのみ使用可能です。他のMCPサーバーを使用しないでください。
+
+| MCP Server | 用途 | 備考 |
+|------------|------|------|
+<Domain Research で特定したMCPサーバーを列挙>
+
+## Red Teamレビュールール（必須）
+
+Claude Codeがファイル作成・編集・設定変更等を出力した場合、**必ずCodexによるRed Teamレビューを実施すること**。
+
+### レビュー手順
+
+1. 出力完了後、`codex:codex-rescue` エージェントにRed Teamレビューを依頼する
+2. レビュー観点:
+   - **正確性**: 出力内容がプロジェクトの環境情報（README.md参照）と整合しているか
+   - **安全性**: 機密情報（APIキー、認証情報等）が含まれていないか
+   - **整合性**: 既存ファイルとの矛盾がないか
+   - **完全性**: 必要な内容が欠落していないか
+   - **ソース参照混入**: 他プロジェクトの固有情報が残っていないか
+3. レビュー結果に問題がある場合は修正してから完了とする
+
+### 適用範囲
+
+- 新規ファイル作成時
+- 既存ファイルの大幅な編集時
+- エージェント設定変更時
+- 外部サービスへの書き込み提案時（承認フローのPhase 4 Red Team Reviewとして実施）
+
+## 言語
+
+日本語で応答してください。
+```
+
+**Customization checklist**:
+- [ ] プロジェクト概要を Purpose Analysis サマリーから記入
+- [ ] MCPサーバー表を Domain Research 結果から記入（不要なら行ごと削除）
+- [ ] エントリポイントパスを実際の `<agent-name>` に置換
+- [ ] 適用範囲をエージェントのドメイン主要操作に合わせて追記・調整
+
+**Validation**:
+- [ ] `<agent-name>` プレースホルダーが全て実名に置換済み
+- [ ] MCPサーバー表の備考欄に必要情報（スペースID・プロジェクトキー等）を記入済み
+- [ ] Red Teamレビュー適用範囲がこのエージェントの主要操作を網羅している
+
 ### Step 8: Copy Rule Details
 
 Copy improved rule-details files into the plugin structure:

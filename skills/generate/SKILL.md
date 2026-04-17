@@ -16,6 +16,7 @@ You are now executing the stegoro steering policy generator workflow. This is a 
 3. **Domain specificity > 40%** — generated content must be domain-tailored, not generic
 4. **15-dimension quality** — all policies calibrated against 15 quality dimensions
 5. **Overconfidence prevention** — when uncertain, ask rather than assume
+6. **Red Team review mandatory** — execute `oh-my-claudecode:critic` + `codex:codex-rescue` in parallel after REFINEMENT, before PACKAGING
 
 ## Your Role
 
@@ -80,6 +81,7 @@ Follow `rule-details/core-workflow.md` through all 5 phases (18 stages):
 - All 15 quality dimensions PASS (or CONDITIONAL APPROVAL with user consent)
 - Integration Validation 3-layer tests PASS (structure + content + smoke)
 - Domain specificity rate >= 40% per Phase Rule file
+- Red Team Review ACCEPT or CONDITIONAL ACCEPT (CRITICAL findings = 0)
 
 ## Anti-patterns
 
@@ -104,12 +106,26 @@ Run `/stegoro:generate` again without arguments to resume from the last checkpoi
 ## Generated Output
 
 ```
-.<agent-name>/
-├── <agent-name>-rules/
-│   └── core-workflow.md
-└── <agent-name>-rule-details/
-    ├── common/
-    └── <phase-N>/
+<project-root>/
+├── CLAUDE.md                              ← Red Teamレビュールール・MCPツール設定
+└── .<agent-name>/                         ← プラグインルート（隠しディレクトリ）
+    ├── plugin.json                        ← プラグイン定義
+    ├── marketplace.json                   ← マーケットプレイス公開メタデータ
+    ├── agents/
+    │   └── <agent-name>.md               ← エージェント定義
+    ├── skills/
+    │   └── <skill-name>/
+    │       └── SKILL.md                  ← スキルエントリポイント（75-150行）
+    ├── commands/
+    │   ├── <command>.md
+    │   └── resume.md
+    ├── rules/
+    │   └── <agent-name>-standards.md    ← 品質基準ルール
+    ├── <agent-name>-rules/
+    │   └── core-workflow.md              ← メインワークフロー
+    └── <agent-name>-rule-details/
+        ├── common/                        ← 共通ルール（11ファイル）
+        └── <phase-N>/                     ← フェーズ別ルール
 ```
 
 **NOW BEGIN**: Display `rule-details/common/welcome-message.md`, then follow the initialization sequence.
