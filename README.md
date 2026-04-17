@@ -42,6 +42,24 @@ A meta-agent for [Claude Code](https://claude.ai/code) that generates steering p
 - **Session Continuity** — State tracking enables pause and resume across sessions
 - **Complete Audit Trail** — ISO 8601 timestamped logging of all decisions and user inputs
 
+### Steering Policies as a User Harness
+
+The generated policies function as a **user harness** — a structured control layer that wraps around the AI agent to ensure it executes complex workflows predictably and under human supervision.
+
+Without a harness, an AI agent operates freely: it may skip validation steps, make autonomous decisions without approval, or deviate from the intended workflow. Steering policies solve this by defining explicit rules the agent must follow at every step.
+
+**How the harness controls workflow:**
+
+| Control Mechanism | How It Works |
+|-------------------|--------------|
+| **Approval Gates** | The agent cannot advance to the next phase or stage without explicit user confirmation |
+| **Phased Execution** | Work is divided into discrete stages with defined inputs, outputs, and completion criteria |
+| **Mandatory Checkpoints** | Critical decisions (scope, architecture, quality) always require user review before proceeding |
+| **Overconfidence Prevention** | The agent is instructed to ask rather than assume when uncertain, preventing silent errors |
+| **Audit Trail** | Every decision and user input is logged with ISO 8601 timestamps for accountability |
+
+The `core-workflow.md` acts as the master orchestrator, routing the agent through each stage in order. The `rule-details/` files provide deep, domain-specific instructions that the agent reads on demand — keeping context focused and instructions precise. Together they ensure the agent behaves as a predictable, controllable system rather than a free-form AI.
+
 ### Generated Output
 
 ```
