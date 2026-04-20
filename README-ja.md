@@ -12,7 +12,7 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/yoshidashingo/steering-policy-generator/blob/main/LICENSE"><img src="https://img.shields.io/github/license/yoshidashingo/steering-policy-generator" alt="license"></a>
+  <a href="https://github.com/yoshidashingo/agent-harness-generator/blob/main/LICENSE"><img src="https://img.shields.io/github/license/yoshidashingo/agent-harness-generator" alt="license"></a>
   <img src="https://img.shields.io/badge/platform-Claude%20Code-blueviolet" alt="platform">
   <img src="https://img.shields.io/badge/quality-AI--DLC%2011%20dimensions-green" alt="quality">
 </p>
@@ -94,8 +94,8 @@
 マーケットプレイスを追加してプラグインをインストール（初回のみ）:
 
 ```bash
-/plugin marketplace add yoshidashingo/steering-policy-generator
-/plugin install stegoro@steering-policy-generator
+/plugin marketplace add yoshidashingo/agent-harness-generator
+/plugin install stegoro@agent-harness-generator
 ```
 
 ### 使い方

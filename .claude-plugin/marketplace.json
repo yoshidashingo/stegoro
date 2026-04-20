@@ -1,5 +1,5 @@
 {
-  "name": "steering-policy-generator",
+  "name": "agent-harness-generator",
   "owner": {
     "name": "yoshidashingo"
   },
@@ -16,7 +16,7 @@
         "name": "yoshidashingo"
       },
       "homepage": "https://stegoro.com",
-      "repository": "https://github.com/yoshidashingo/steering-policy-generator",
+      "repository": "https://github.com/yoshidashingo/agent-harness-generator",
       "license": "MIT",
       "keywords": [
         "stegoro",
