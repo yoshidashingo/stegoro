@@ -1,5 +1,5 @@
 {
-  "name": "agent-harness-generator",
+  "name": "stegoro",
   "owner": {
     "name": "yoshidashingo"
   },
@@ -16,7 +16,7 @@
         "name": "yoshidashingo"
       },
       "homepage": "https://stegoro.com",
-      "repository": "https://github.com/yoshidashingo/agent-harness-generator",
+      "repository": "https://github.com/yoshidashingo/stegoro",
       "license": "MIT",
       "keywords": [
         "stegoro",

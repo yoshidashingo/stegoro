@@ -38,7 +38,7 @@
   "name": "customer-support-agent",
   "version": "2.0.0",
   "description": "SaaS/Webサービス向けカスタマーサポートエージェント。メール問い合わせのトリアージ・回答生成・品質検査・フォローアップを自動化する。",
-  "author": "agent-harness-generator",
+  "author": "stegoro",
   "license": "MIT",
   "entrypoint": "customer-support-agent-rules/core-workflow.md",
   "rule_details": "customer-support-agent-rule-details/",
