@@ -661,6 +661,7 @@ The Steering Policy Maker classifies target agents into four types, which determ
 ├── skills/                                 Skill entry points (SKILL.md)
 ├── commands/                               Command definitions
 ├── rules/                                  Quality standards rules
+├── <agent-name>-rules/                     Core workflow (copied from policy)
 └── <agent-name>-rule-details/              Improved rule files (copied from policy)
 ```
 

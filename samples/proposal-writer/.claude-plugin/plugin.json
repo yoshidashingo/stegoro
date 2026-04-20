@@ -1,0 +1,9 @@
+{
+  "name": "proposal-writer",
+  "version": "1.0.0",
+  "description": "提案書作成エージェント。RFPを受け取りコンプライアンスマトリックス・技術提案・管理提案・価格フレームワークを含む包括的な提案書を自動生成するAnalytical型ステアリングポリシー。",
+  "agents": ["agents/*.md"],
+  "skills": ["skills/*/SKILL.md"],
+  "commands": ["commands/*.md"],
+  "rules": ["rules/*.md"]
+}
