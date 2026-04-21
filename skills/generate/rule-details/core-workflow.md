@@ -641,10 +641,17 @@ The Steering Policy Maker classifies target agents into four types, which determ
 
 ## Generated Output Directory Structure
 
-### Policy Files (Standard)
+### Generated Output Directory Structure
+
+すべての生成ファイルは `<agent-name>/` ディレクトリ（ドットなし）に格納する。
 
 ```text
-.<agent-name>/
+<agent-name>/
+├── .claude-plugin/                         plugin.json + marketplace.json (PACKAGING)
+├── agents/                                 Specialist agent definitions (PACKAGING)
+├── skills/                                 Skill entry points — SKILL.md (PACKAGING)
+├── commands/                               Command definitions (PACKAGING)
+├── rules/                                  Quality standards rules (PACKAGING)
 ├── <agent-name>-rules/
 │   └── core-workflow.md                    Master orchestrator
 └── <agent-name>-rule-details/
@@ -652,17 +659,4 @@ The Steering Policy Maker classifies target agents into four types, which determ
     └── <phase-N>/                          Phase-specific rules per stage
 ```
 
-### Plugin Structure (PACKAGING phase output)
-
-```text
-<agent-name>/
-├── .claude-plugin/                         plugin.json + marketplace.json
-├── agents/                                 Specialist agent definitions
-├── skills/                                 Skill entry points (SKILL.md)
-├── commands/                               Command definitions
-├── rules/                                  Quality standards rules
-├── <agent-name>-rules/                     Core workflow (copied from policy)
-└── <agent-name>-rule-details/              Improved rule files (copied from policy)
-```
-
-**CRITICAL RULES**: Generated policy files go inside `.<agent-name>/` directory. Each target agent gets its own dot-directory. All file references in core-workflow.md must resolve to actual files. Plugin structure is generated only in PACKAGING phase. Line limits: SKILL.md 75-150, core-workflow 200-600.
+**CRITICAL RULES**: All generated files go inside `<agent-name>/` directory (no dot prefix). Each target agent gets its own directory. Directories `.claude-plugin/`, `agents/`, `skills/`, `commands/`, `rules/` are added only in PACKAGING phase. All file references in core-workflow.md must resolve to actual files. Line limits: SKILL.md 75-150, core-workflow 200-600.

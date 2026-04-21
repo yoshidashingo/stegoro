@@ -93,7 +93,7 @@ Before writing each file:
 - [ ] Required sections present (Purpose, main content, error handling, references)
 
 ##### 3d. Write File
-Write to: `.<agent-name>/<agent-name>-rule-details/common/<filename>.md`
+Write to: `<agent-name>/<agent-name>-rule-details/common/<filename>.md`
 
 ### Step 4: File-by-File Generation Guide
 
@@ -253,7 +253,7 @@ Check:
 ## Output Artifacts
 
 ### Generated Common Rule Files
-- **Location**: `.<agent-name>/<agent-name>-rule-details/common/`
+- **Location**: `<agent-name>/<agent-name>-rule-details/common/`
 - **Count**: 10 standard + [N] domain-specific
 - **Total Lines**: Estimated [N] lines across all files
 
@@ -266,7 +266,7 @@ Check:
 **Common Rules Generation is complete.** Here's what was produced:
 
 - **Files Generated**: [N] common rule files
-- **Location**: `.<agent-name>/<agent-name>-rule-details/common/`
+- **Location**: `<agent-name>/<agent-name>-rule-details/common/`
 - **Total Lines**: [N]
 - **Cross-Reference Validation**: [PASS/FAIL]
 

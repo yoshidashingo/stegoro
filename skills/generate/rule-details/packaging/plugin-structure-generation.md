@@ -45,7 +45,7 @@ Generate the plugin metadata file:
 ```json
 {
   "name": "<agent-name>",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "<agent description from Purpose Analysis>",
   "agents": ["agents/*.md"],
   "skills": ["skills/*/SKILL.md"],
@@ -54,23 +54,28 @@ Generate the plugin metadata file:
 }
 ```
 
+**Note**: Start with `0.1.0` for unreleased plugins; increment using semver (`0.x.y` → `1.0.0` for first stable release).
+
 **Validation**:
 - [ ] All required fields present (name, version, description, agents, skills, commands)
 - [ ] Referenced paths will resolve after all files are generated
-- [ ] Version follows semantic versioning
+- [ ] Version follows semantic versioning (default: `0.1.0`)
 
 #### 3b: marketplace.json
-Generate marketplace publication metadata:
+Generate marketplace publication metadata (per-plugin format — placed inside the plugin directory):
 
 ```json
 {
   "displayName": "<User-friendly agent name>",
   "description": "<1-2 sentence description>",
+  "category": "<domain category, e.g. 'methodology', 'productivity', 'engineering'>",
   "tags": ["steering-policy", "<domain-tag>"],
   "author": "<author>",
   "autoUpdate": true
 }
 ```
+
+**Note**: This is the **per-plugin metadata** file, not the marketplace registry format. The marketplace registry (`plugins: []` array wrapping) lives in the publisher's separate marketplace repo. This `marketplace.json` describes the plugin itself.
 
 ### Step 4: Generate Agent Definitions
 
@@ -213,7 +218,9 @@ Generate `rules/<agent-name>-standards.md` for quality enforcement:
 
 Generate a `CLAUDE.md` file for the target project repository. This file enforces Red Team review and provides project-level instructions for ongoing agent operations.
 
-**Output location**: `steering-docs/<agent-name>/packaging/CLAUDE.md` (to be copied to the target project root)
+**Output location**: `steering-docs/<agent-name>/packaging/CLAUDE.md`
+
+**Deployment**: Copy this file to the **root of the repository that will install and use the generated plugin** (i.e., the user's project, not the stegoro generator repo). The plugin itself lives at `<agent-name>/` within that project.
 
 **Template**:
 
@@ -228,7 +235,7 @@ Generate a `CLAUDE.md` file for the target project repository. This file enforce
 
 ## エントリポイント
 
-`.<agent-name>/<agent-name>-rules/core-workflow.md` を最初に読み込んで指示に従うこと。
+`<agent-name>/<agent-name>-rules/core-workflow.md` を最初に読み込んで指示に従うこと。
 
 ## 利用可能なツール
 
@@ -292,6 +299,8 @@ Before presenting for approval, verify:
 - [ ] All commands have execution steps
 - [ ] Rule-details files are correctly copied
 - [ ] `implementation-knowhow.md` 10 patterns checklist passes
+- [ ] Working directory root (`<agent-name>/`) matches the source path used in Step 8 copy
+- [ ] All file paths in SKILL.md, core-workflow.md, and agent definitions resolve to existing generated files
 
 ---
 

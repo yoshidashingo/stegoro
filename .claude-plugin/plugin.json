@@ -18,5 +18,9 @@
     "workflow",
     "quality-assurance",
     "ai-dlc"
-  ]
+  ],
+  "skills": ["skills/*/SKILL.md"],
+  "agents": [],
+  "commands": [],
+  "rules": []
 }

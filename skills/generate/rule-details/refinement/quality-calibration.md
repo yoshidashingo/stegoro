@@ -23,7 +23,7 @@ This stage always executes as it's the definitive quality validation for the gen
 **Input**: Generated policy set + AI-DLC reference
 **Output**: Complete comparison context
 
-**Generated Policy Set**: Load from `.<agent-name>/`
+**Generated Policy Set**: Load from `<agent-name>/`
 **AI-DLC Reference**: Load key files from `.aidlc/` for comparison:
 - `.aidlc/aws-aidlc-rules/core-workflow.md` — Master workflow reference
 - `.aidlc/aws-aidlc-rule-details/common/` — Common rules reference
@@ -410,7 +410,7 @@ Dimension scores:
 **The steering policy set for [Agent Name] has been generated, validated, and quality-calibrated.**
 
 **Final Deliverables:**
-- **Directory**: `.[agent-name]/`
+- **Directory**: `[agent-name]/`
 - **Total Files**: [N]
 - **Total Lines**: [N]
 - **Quality Score**: [N]/15 dimensions PASS
@@ -423,7 +423,7 @@ Dimension scores:
 
 ### NEXT STEPS
 
-1. **Review** the generated policy files in `.[agent-name]/`
+1. **Review** the generated policy files in `[agent-name]/`
 2. **Test** the workflow by running the target agent with a sample task
 3. **Iterate** on any rules that need adjustment based on real usage
 

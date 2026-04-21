@@ -60,10 +60,36 @@ Without a harness, an AI agent operates freely: it may skip validation steps, ma
 
 The `core-workflow.md` acts as the master orchestrator, routing the agent through each stage in order. The `rule-details/` files provide deep, domain-specific instructions that the agent reads on demand — keeping context focused and instructions precise. Together they ensure the agent behaves as a predictable, controllable system rather than a free-form AI.
 
+### Packaging as an Agent Skill
+
+The generated user harness can be packaged as a **Claude Code agent skill**, turning it into a distributable, installable plugin.
+
+By adding a `.claude-plugin/` metadata directory alongside the generated policy files, the harness becomes a plugin that anyone can install and invoke via slash commands — no manual file setup required.
+
+```bash
+# Install a published agent skill
+/plugin marketplace add <org>/<agent>
+/plugin install <agent>@<agent>
+
+# Invoke the agent
+/<agent>:run
+```
+
+This is the deployment model used by the example agents in the [`samples/`](samples/) directory — each includes a `.claude-plugin/` directory that makes it publishable to the Claude Code marketplace.
+
 ### Generated Output
 
 ```
-.<agent-name>/
+<agent-name>/
+├── .claude-plugin/
+│   ├── plugin.json                   # Plugin metadata
+│   └── marketplace.json              # Marketplace publication info
+├── agents/                           # Specialist agent definitions
+├── skills/
+│   └── <skill-name>/
+│       └── SKILL.md                  # Skill entry point (75-150 lines)
+├── commands/                         # Slash commands
+├── rules/                            # Quality standards
 ├── <agent-name>-rules/
 │   └── core-workflow.md              # Master orchestrator
 └── <agent-name>-rule-details/

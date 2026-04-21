@@ -137,7 +137,7 @@ Select quality level based on:
 #### Directory Structure Template
 
 ```
-.<agent-name>/
+<agent-name>/
 ├── <agent-name>-rules/
 │   └── core-workflow.md
 └── <agent-name>-rule-details/

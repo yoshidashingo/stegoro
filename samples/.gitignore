@@ -1,0 +1,2 @@
+# OMC runtime state — never commit agent execution artifacts
+.omc/

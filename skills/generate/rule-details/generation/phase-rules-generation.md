@@ -193,7 +193,7 @@ Before writing each file, verify:
 - [ ] Completion message language matches target language
 
 ##### 3f. Write File
-Write to: `.<agent-name>/<agent-name>-rule-details/<phase-dir>/<filename>.md`
+Write to: `<agent-name>/<agent-name>-rule-details/<phase-dir>/<filename>.md`
 
 ### Step 4: Phase-by-Phase Generation
 
@@ -242,7 +242,7 @@ For each two-part stage, verify:
 ## Output Artifacts
 
 ### Generated Phase Rule Files
-- **Location**: `.<agent-name>/<agent-name>-rule-details/<phase-dirs>/`
+- **Location**: `<agent-name>/<agent-name>-rule-details/<phase-dirs>/`
 - **Count**: [N] files across [N] phase directories
 - **Total Lines**: Estimated [N] lines
 

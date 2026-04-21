@@ -108,19 +108,20 @@ Run `/stegoro:generate` again without arguments to resume from the last checkpoi
 ```
 <project-root>/
 ├── CLAUDE.md                              ← Red Teamレビュールール・MCPツール設定
-└── .<agent-name>/                         ← プラグインルート（隠しディレクトリ）
-    ├── plugin.json                        ← プラグイン定義
-    ├── marketplace.json                   ← マーケットプレイス公開メタデータ
+└── <agent-name>/                          ← プラグインルート
+    ├── .claude-plugin/
+    │   ├── plugin.json                    ← プラグイン定義
+    │   └── marketplace.json               ← マーケットプレイス公開メタデータ
     ├── agents/
-    │   └── <agent-name>.md               ← エージェント定義
+    │   └── <agent-name>.md               ← エージェント定義（PACKAGINGで追加）
     ├── skills/
     │   └── <skill-name>/
-    │       └── SKILL.md                  ← スキルエントリポイント（75-150行）
+    │       └── SKILL.md                  ← スキルエントリポイント（75-150行、PACKAGINGで追加）
     ├── commands/
     │   ├── <command>.md
     │   └── resume.md
     ├── rules/
-    │   └── <agent-name>-standards.md    ← 品質基準ルール
+    │   └── <agent-name>-standards.md    ← 品質基準ルール（PACKAGINGで追加）
     ├── <agent-name>-rules/
     │   └── core-workflow.md              ← メインワークフロー
     └── <agent-name>-rule-details/

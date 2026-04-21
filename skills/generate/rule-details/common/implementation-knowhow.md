@@ -2,31 +2,26 @@
 
 ## ディレクトリ構造の統一パターン
 
-### ポリシーファイルの標準構造
+### 標準構造（GENERATIONで作成 → PACKAGINGで完成）
 
-```text
-.<agent-name>/
-├── <agent-name>-rules/
-│   └── core-workflow.md
-└── <agent-name>-rule-details/
-    ├── common/
-    ├── <phase-1>/
-    └── <phase-N>/
-```
-
-### プラグイン構造（PACKAGING Phase出力）
+すべての生成ファイルは `<agent-name>/` ディレクトリ（ドットなし）に格納する。
 
 ```text
 <agent-name>/
-├── .claude-plugin/
-│   ├── plugin.json
-│   └── marketplace.json
-├── agents/
-├── skills/
+├── .claude-plugin/                        ← PACKAGINGフェーズで追加
+│   ├── plugin.json                        ← プラグイン定義
+│   └── marketplace.json                   ← マーケットプレイス公開メタデータ
+├── agents/                                ← PACKAGINGフェーズで追加
+├── skills/                                ← PACKAGINGフェーズで追加
 │   └── <skill-name>/SKILL.md
-├── commands/
-├── rules/
-└── <agent-name>-rule-details/
+├── commands/                              ← PACKAGINGフェーズで追加
+├── rules/                                 ← PACKAGINGフェーズで追加
+├── <agent-name>-rules/                    ← GENERATIONフェーズで作成
+│   └── core-workflow.md
+└── <agent-name>-rule-details/            ← GENERATIONフェーズで作成
+    ├── common/
+    ├── <phase-1>/
+    └── <phase-N>/
 ```
 
 ---
@@ -57,7 +52,7 @@
 ```json
 {
   "name": "<agent-name>",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "...",
   "agents": ["agents/*.md"],
   "skills": ["skills/*/SKILL.md"],
