@@ -108,25 +108,23 @@ Run `/stegoro:generate` again without arguments to resume from the last checkpoi
 ```
 <project-root>/
 ├── CLAUDE.md                              ← Red Teamレビュールール・MCPツール設定
-└── <agent-name>/                          ← プラグインルート
+└── <agent-name>/                          ← プラグインルート（Claude Code spec準拠）
     ├── .claude-plugin/
-    │   ├── plugin.json                    ← プラグイン定義
-    │   └── marketplace.json               ← マーケットプレイス公開メタデータ
-    ├── agents/
-    │   └── <agent-name>.md               ← エージェント定義（PACKAGINGで追加）
-    ├── skills/
-    │   └── <skill-name>/
-    │       └── SKILL.md                  ← スキルエントリポイント（75-150行、PACKAGINGで追加）
-    ├── commands/
+    │   └── plugin.json                    ← プラグイン定義
+    ├── agents/                            ← 専門エージェント定義（PACKAGINGで追加、optional）
+    │   └── <agent-name>.md
+    ├── commands/                          ← スラッシュコマンド（PACKAGINGで追加、optional）
     │   ├── <command>.md
     │   └── resume.md
-    ├── rules/
-    │   └── <agent-name>-standards.md    ← 品質基準ルール（PACKAGINGで追加）
-    ├── <agent-name>-rules/
-    │   └── core-workflow.md              ← メインワークフロー
-    └── <agent-name>-rule-details/
-        ├── common/                        ← 共通ルール（11ファイル）
-        └── <phase-N>/                     ← フェーズ別ルール
+    └── skills/
+        └── <skill-name>/                  ← skills/<name>/SKILL.md（公式パターン）
+            ├── SKILL.md                  ← エントリポイント（75-150行）
+            ├── core-workflow.md           ← マスターオーケストレーター
+            └── rule-details/              ← サポートファイル
+                ├── common/                ← 共通ルール（11ファイル）
+                └── <phase-N>/             ← フェーズ別ルール
 ```
+
+**注意**: `rules/` ディレクトリは Claude Code 仕様に存在しないため使用しない。品質基準は `skills/<skill-name>/standards.md` 等のサポートファイルとして SKILL.md から参照する。`marketplace.json` は **マーケットプレイスレジストリリポジトリ側** の `.claude-plugin/marketplace.json` に置き、各プラグイン内には置かない。
 
 **NOW BEGIN**: Display `rule-details/common/welcome-message.md`, then follow the initialization sequence.

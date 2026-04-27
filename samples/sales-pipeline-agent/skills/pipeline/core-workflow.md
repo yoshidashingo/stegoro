@@ -17,7 +17,7 @@
 ---
 
 ## MANDATORY: Rule Details Loading
-**重要**: 各フェーズを実行する際は、必ず `sales-pipeline-agent-rule-details/` のルール詳細ファイルを読み込み参照すること。
+**重要**: 各フェーズを実行する際は、必ず `rule-details/` のルール詳細ファイルを読み込み参照すること。
 
 **Common Rules**: ワークフロー開始時に常にロード:
 - `common/welcome-message.md` — エージェント紹介、日中/夜間モードの説明、4ソース統合巡回の概要
@@ -429,7 +429,7 @@
 1. 全ポリシーファイルの確定を確認する
 2. plugin.json と marketplace.json を生成する
 3. エージェント定義・スキルエントリポイント・コマンドを生成する
-4. `sales-pipeline-agent-rule-details/` のルール詳細ファイルをプラグイン構造にコピーする
+4. `rule-details/` のルール詳細ファイルをプラグイン構造にコピーする
 5. **Wait for Explicit Approval**: プラグイン構造（ファイル一覧・参照整合性チェック結果）を提示する（CP-8）
 
 ## P2: Automated Validation（ALWAYS EXECUTE）
@@ -514,44 +514,51 @@ FAIL / Gap detected
 ## Generated Output Directory Structure
 
 ```text
-.sales-pipeline-agent/
-├── sales-pipeline-agent-rules/
-│   └── core-workflow.md
-└── sales-pipeline-agent-rule-details/
-    ├── common/                    （12ファイル）
-    │   ├── welcome-message.md
-    │   ├── process-overview.md
-    │   ├── question-format-guide.md
-    │   ├── content-validation.md
-    │   ├── session-continuity.md
-    │   ├── error-handling.md
-    │   ├── overconfidence-prevention.md
-    │   ├── terminology.md
-    │   ├── quality-standards.md
-    │   ├── output-structure-patterns.md
-    │   ├── action-authority.md
-    │   └── data-source-config.md
-    ├── surveillance/              （4ファイル）
-    │   ├── schedule-check.md
-    │   ├── source-connection.md
-    │   ├── data-collection.md
-    │   └── change-detection.md
-    ├── assessment/                （4ファイル）
-    │   ├── deal-health-scoring.md
-    │   ├── action-identification.md
-    │   ├── priority-ranking.md
-    │   └── authority-classification.md
-    ├── dispatch/                  （5ファイル）
-    │   ├── auto-execute.md
-    │   ├── approval-request.md
-    │   ├── approval-processing.md
-    │   ├── loop-control.md
-    │   └── rollback-check.md
-    ├── reporting/                 （3ファイル）
-    │   ├── daily-summary-generation.md
-    │   ├── next-day-prep.md
-    │   └── audit-log-finalization.md
-    └── packaging/                 （2ファイル）
-        ├── plugin-structure-generation.md
-        └── automated-validation.md
+sales-pipeline-agent/
+├── .claude-plugin/
+│   └── plugin.json
+├── agents/                                (orchestrator, data-integrator)
+├── commands/                              (start-cycle, resume-cycle, validate-policy)
+└── skills/
+    └── pipeline/
+        ├── SKILL.md
+        ├── core-workflow.md
+        ├── standards.md
+        └── rule-details/
+            ├── common/                    （12ファイル）
+            │   ├── welcome-message.md
+            │   ├── process-overview.md
+            │   ├── question-format-guide.md
+            │   ├── content-validation.md
+            │   ├── session-continuity.md
+            │   ├── error-handling.md
+            │   ├── overconfidence-prevention.md
+            │   ├── terminology.md
+            │   ├── quality-standards.md
+            │   ├── output-structure-patterns.md
+            │   ├── action-authority.md
+            │   └── data-source-config.md
+            ├── surveillance/              （4ファイル）
+            │   ├── schedule-check.md
+            │   ├── source-connection.md
+            │   ├── data-collection.md
+            │   └── change-detection.md
+            ├── assessment/                （4ファイル）
+            │   ├── deal-health-scoring.md
+            │   ├── action-identification.md
+            │   ├── priority-ranking.md
+            │   └── authority-classification.md
+            ├── dispatch/                  （5ファイル）
+            │   ├── auto-execute.md
+            │   ├── approval-request.md
+            │   ├── approval-processing.md
+            │   ├── loop-control.md
+            │   └── rollback-check.md
+            ├── reporting/                 （3ファイル）
+            │   ├── daily-summary-generation.md
+            │   ├── next-day-prep.md
+            │   └── audit-log-finalization.md
+            └── packaging/                 （2ファイル）
+                ├── plugin-structure-generation.md
+                └── automated-validation.md
 ```

@@ -37,7 +37,7 @@
 **確認対象ファイルリスト**:
 
 ```
-sales-pipeline-agent-rule-details/
+rule-details/
 ├── surveillance/
 │   ├── schedule-check.md
 │   ├── source-connection.md
@@ -62,7 +62,7 @@ sales-pipeline-agent-rule-details/
     ├── plugin-structure-generation.md
     └── automated-validation.md
 
-sales-pipeline-agent-rules/
+./
 ├── core-workflow.md
 ├── action-authority.md
 └── common/ （共通ルール群）
@@ -83,10 +83,10 @@ Claude Codeプラグイン仕様に従って `plugin.json` を生成する。
   "type": "agent",
   "entry_point": "agents/sales-pipeline-agent.md",
   "rules": [
-    "sales-pipeline-agent-rules/core-workflow.md",
-    "sales-pipeline-agent-rules/action-authority.md"
+    "./core-workflow.md",
+    "./action-authority.md"
   ],
-  "rule_details": "sales-pipeline-agent-rule-details/",
+  "rule_details": "rule-details/",
   "config": "config/",
   "state": "state/",
   "logs": "logs/",
@@ -132,7 +132,7 @@ workflow-architecture.md のフローに従い、以下の4フェーズを実行
 4. REPORTING（R1→R2→R3）
 
 ## Phase Rules Reference
-各ステージの詳細は sales-pipeline-agent-rule-details/ を参照。
+各ステージの詳細は rule-details/ を参照。
 
 ## Configuration
 設定ファイルは config/ ディレクトリを参照。
@@ -157,7 +157,7 @@ workflow-architecture.md のフローに従い、以下の4フェーズを実行
 │   └── japan-holidays.json.example
 ├── state/                     # 実行時状態ファイル（.gitignore対象）
 ├── logs/                      # 監査ログ（.gitignore対象）
-└── sales-pipeline-agent-rule-details/  # Phase Rules（既存）
+└── rule-details/  # Phase Rules（既存）
 ```
 
 **設定ファイルのexampleテンプレート生成**:

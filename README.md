@@ -80,34 +80,33 @@ This is the deployment model used by the example agents in the [`samples/`](samp
 ### Generated Output
 
 ```
-<agent-name>/
+<agent-name>/                            # Claude Code plugin root (spec-compliant)
 ├── .claude-plugin/
-│   ├── plugin.json                   # Plugin metadata
-│   └── marketplace.json              # Marketplace publication info
-├── agents/                           # Specialist agent definitions
-├── skills/
-│   └── <skill-name>/
-│       └── SKILL.md                  # Skill entry point (75-150 lines)
-├── commands/                         # Slash commands
-├── rules/                            # Quality standards
-├── <agent-name>-rules/
-│   └── core-workflow.md              # Master orchestrator
-└── <agent-name>-rule-details/
-    ├── common/                       # Cross-phase rules
-    │   ├── welcome-message.md
-    │   ├── process-overview.md
-    │   ├── question-format-guide.md
-    │   ├── content-validation.md
-    │   ├── session-continuity.md
-    │   ├── error-handling.md
-    │   ├── terminology.md
-    │   └── ...
-    ├── <phase-1>/                    # Phase-specific rules
-    │   ├── <stage-1>.md
-    │   └── ...
-    └── <phase-N>/
-        └── ...
+│   └── plugin.json                     # Plugin metadata
+├── agents/                             # Specialist agent definitions (optional)
+├── commands/                           # Slash commands (optional)
+└── skills/
+    └── <skill-name>/                   # skills/<name>/SKILL.md (official pattern)
+        ├── SKILL.md                    # Skill entry point (75-150 lines)
+        ├── core-workflow.md            # Master orchestrator
+        └── rule-details/               # Supporting files referenced from SKILL.md
+            ├── common/                 # Cross-phase rules
+            │   ├── welcome-message.md
+            │   ├── process-overview.md
+            │   ├── question-format-guide.md
+            │   ├── content-validation.md
+            │   ├── session-continuity.md
+            │   ├── error-handling.md
+            │   ├── terminology.md
+            │   └── ...
+            ├── <phase-1>/              # Phase-specific rules
+            │   ├── <stage-1>.md
+            │   └── ...
+            └── <phase-N>/
+                └── ...
 ```
+
+**Note**: Quality standards live as supporting files inside `skills/<skill-name>/` per the official skills spec. The plugin's `marketplace.json` lives in the marketplace registry repo, not inside each plugin.
 
 ## How
 

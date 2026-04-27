@@ -1,9 +1,5 @@
 {
   "name": "customer-support-agent",
   "version": "1.0.0",
-  "description": "SaaS/Webサービス向けカスタマーサポート対応エージェント。メール問い合わせのトリアージ・回答生成・品質検査・フォローアップを自動化するHybrid型ステアリングポリシー。",
-  "agents": ["agents/*.md"],
-  "skills": ["skills/*/SKILL.md"],
-  "commands": ["commands/*.md"],
-  "rules": ["rules/*.md"]
+  "description": "SaaS/Webサービス向けカスタマーサポート対応エージェント。メール問い合わせのトリアージ・回答生成・品質検査・フォローアップを自動化するHybrid型ステアリングポリシー。"
 }

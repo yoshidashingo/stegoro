@@ -1,5 +1,5 @@
 ---
-name: sales-pipeline
+name: pipeline
 description: B2B SaaS営業パイプライン管理スキル。Salesforce/Gmail/Calendar/Slackの4ソースを定期巡回し商談の停滞・未返信・期限接近を自動検出するHybrid型ステアリングポリシーのエントリポイント。
 ---
 
@@ -77,9 +77,10 @@ Salesforce API日次使用率を毎サイクル開始時に確認し、閾値に
 
 詳細なルール定義は以下のファイルを参照する。
 
-- `../../sales-pipeline-agent-rules/core-workflow.md` — ワークフロー全体定義
-- `../../sales-pipeline-agent-rule-details/surveillance/` — S1: schedule-check, S2: source-connection, S3: data-collection, S4: change-detection
-- `../../sales-pipeline-agent-rule-details/assessment/` — A1: deal-health-scoring, A2: action-identification, A3: priority-ranking, A4: authority-classification
-- `../../sales-pipeline-agent-rule-details/dispatch/` — D1: auto-execute, D2: approval-request, D3: approval-processing, D4: loop-control, D5: rollback-check
-- `../../sales-pipeline-agent-rule-details/reporting/` — R1: daily-summary-generation, R2: next-day-prep, R3: audit-log-finalization
-- `../../sales-pipeline-agent-rule-details/common/` — action-authority, data-source-config, overconfidence-prevention 他
+- `./core-workflow.md` — ワークフロー全体定義
+- `./standards.md` — 品質基準（15次元）
+- `./rule-details/surveillance/` — S1: schedule-check, S2: source-connection, S3: data-collection, S4: change-detection
+- `./rule-details/assessment/` — A1: deal-health-scoring, A2: action-identification, A3: priority-ranking, A4: authority-classification
+- `./rule-details/dispatch/` — D1: auto-execute, D2: approval-request, D3: approval-processing, D4: loop-control, D5: rollback-check
+- `./rule-details/reporting/` — R1: daily-summary-generation, R2: next-day-prep, R3: audit-log-finalization
+- `./rule-details/common/` — action-authority, data-source-config, overconfidence-prevention 他

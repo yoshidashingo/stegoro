@@ -1,9 +1,5 @@
 {
   "name": "sales-pipeline-agent",
   "version": "1.0.0",
-  "description": "B2B SaaS営業パイプライン管理エージェント。Salesforce/Gmail/Calendar/Slackの4ソースを定期巡回し、商談の停滞・未返信・期限接近等を自動検出。低リスクアクション自動実行+高リスク承認制のHybrid型。",
-  "agents": ["agents/*.md"],
-  "skills": ["skills/*/SKILL.md"],
-  "commands": ["commands/*.md"],
-  "rules": ["rules/*.md"]
+  "description": "B2B SaaS営業パイプライン管理エージェント。Salesforce/Gmail/Calendar/Slackの4ソースを定期巡回し、商談の停滞・未返信・期限接近等を自動検出。低リスクアクション自動実行+高リスク承認制のHybrid型。"
 }

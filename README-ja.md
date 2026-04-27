@@ -80,34 +80,33 @@
 ### 生成される出力
 
 ```
-<agent-name>/
+<agent-name>/                            # Claude Code プラグインルート（公式仕様準拠）
 ├── .claude-plugin/
-│   ├── plugin.json                   # プラグインメタデータ
-│   └── marketplace.json              # マーケットプレイス公開情報
-├── agents/                           # 専門エージェント定義
-├── skills/
-│   └── <skill-name>/
-│       └── SKILL.md                  # スキルエントリポイント（75-150行）
-├── commands/                         # スラッシュコマンド
-├── rules/                            # 品質基準ルール
-├── <agent-name>-rules/
-│   └── core-workflow.md              # マスターオーケストレーター
-└── <agent-name>-rule-details/
-    ├── common/                       # フェーズ横断ルール
-    │   ├── welcome-message.md
-    │   ├── process-overview.md
-    │   ├── question-format-guide.md
-    │   ├── content-validation.md
-    │   ├── session-continuity.md
-    │   ├── error-handling.md
-    │   ├── terminology.md
-    │   └── ...
-    ├── <phase-1>/                    # フェーズ固有ルール
-    │   ├── <stage-1>.md
-    │   └── ...
-    └── <phase-N>/
-        └── ...
+│   └── plugin.json                     # プラグインメタデータ
+├── agents/                             # 専門エージェント定義（オプション）
+├── commands/                           # スラッシュコマンド（オプション）
+└── skills/
+    └── <skill-name>/                   # skills/<name>/SKILL.md（公式パターン）
+        ├── SKILL.md                    # スキルエントリポイント（75-150行）
+        ├── core-workflow.md            # マスターオーケストレーター
+        └── rule-details/               # SKILL.md から参照するサポートファイル
+            ├── common/                 # フェーズ横断ルール
+            │   ├── welcome-message.md
+            │   ├── process-overview.md
+            │   ├── question-format-guide.md
+            │   ├── content-validation.md
+            │   ├── session-continuity.md
+            │   ├── error-handling.md
+            │   ├── terminology.md
+            │   └── ...
+            ├── <phase-1>/              # フェーズ固有ルール
+            │   ├── <stage-1>.md
+            │   └── ...
+            └── <phase-N>/
+                └── ...
 ```
+
+**注意**: 品質基準は公式の Skills 仕様に従い `skills/<skill-name>/` 配下のサポートファイルとして配置する。プラグインの `marketplace.json` はマーケットプレイスレジストリリポジトリ側の `.claude-plugin/marketplace.json` に置き、各プラグイン内には置かない。
 
 ## How — 使い方
 

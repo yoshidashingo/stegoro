@@ -1,5 +1,5 @@
 ---
-name: customer-support
+name: support
 description: SaaS/Webサービス向けカスタマーサポート対応スキル。メール問い合わせのトリアージ・回答生成・品質検査・フォローアップを自動化するHybrid型ステアリングポリシーのエントリポイント。
 ---
 
@@ -84,12 +84,13 @@ T3で顧客プランに基づくSLA（Free: 48h / Standard: 24h / Pro: 8h / Ente
 詳細なルール定義は以下のファイルを参照する。
 
 ```
-../../customer-support-agent-rules/core-workflow.md        # ワークフロー全体定義
-../../customer-support-agent-rule-details/triage/          # T1: ticket-reception, T2: classification, T3: priority-assessment
-../../customer-support-agent-rule-details/response/        # R1: mode-selection, R2: knowledge-retrieval, R3: draft-generation
-                                                           # R4: escalation-handoff, R5: trend-analysis
-../../customer-support-agent-rule-details/quality/         # Q1: pii-scan, Q2: content-review, Q3: tone-calibration, Q4: dispatch
-../../customer-support-agent-rule-details/follow-up/       # F1: case-tracking, F2: faq-candidate-extraction
-../../customer-support-agent-rule-details/packaging/       # P1: plugin-structure-generation, P2: automated-validation
-../../customer-support-agent-rule-details/common/          # tone-guidelines, content-validation, overconfidence-prevention 他
+./core-workflow.md           # ワークフロー全体定義
+./standards.md               # 品質基準（15次元）
+./rule-details/triage/       # T1: ticket-reception, T2: classification, T3: priority-assessment
+./rule-details/response/     # R1: mode-selection, R2: knowledge-retrieval, R3: draft-generation
+                             # R4: escalation-handoff, R5: trend-analysis
+./rule-details/quality/      # Q1: pii-scan, Q2: content-review, Q3: tone-calibration, Q4: dispatch
+./rule-details/follow-up/    # F1: case-tracking, F2: faq-candidate-extraction
+./rule-details/packaging/    # P1: plugin-structure-generation, P2: automated-validation
+./rule-details/common/       # tone-guidelines, content-validation, overconfidence-prevention 他
 ```

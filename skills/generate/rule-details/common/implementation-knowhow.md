@@ -8,21 +8,25 @@
 
 ```text
 <agent-name>/
-├── .claude-plugin/                        ← PACKAGINGフェーズで追加
-│   ├── plugin.json                        ← プラグイン定義
-│   └── marketplace.json                   ← マーケットプレイス公開メタデータ
-├── agents/                                ← PACKAGINGフェーズで追加
-├── skills/                                ← PACKAGINGフェーズで追加
-│   └── <skill-name>/SKILL.md
-├── commands/                              ← PACKAGINGフェーズで追加
-├── rules/                                 ← PACKAGINGフェーズで追加
-├── <agent-name>-rules/                    ← GENERATIONフェーズで作成
-│   └── core-workflow.md
-└── <agent-name>-rule-details/            ← GENERATIONフェーズで作成
-    ├── common/
-    ├── <phase-1>/
-    └── <phase-N>/
+├── .claude-plugin/
+│   └── plugin.json                        ← プラグイン定義（PACKAGINGフェーズで追加）
+├── agents/                                ← オプション（PACKAGINGフェーズで追加）
+├── commands/                              ← オプション（PACKAGINGフェーズで追加）
+└── skills/
+    └── <skill-name>/                      ← スキル本体
+        ├── SKILL.md                       ← スキルエントリポイント（PACKAGINGで生成）
+        ├── core-workflow.md               ← マスターオーケストレーター（GENERATIONで生成）
+        ├── standards.md                   ← 品質基準（オプション、SKILL.mdから参照）
+        └── rule-details/                  ← ルール詳細（GENERATIONで生成）
+            ├── common/
+            ├── <phase-1>/
+            └── <phase-N>/
 ```
+
+**重要**:
+- `marketplace.json` は per-plugin では作らない（公式仕様外）
+- `rules/` ディレクトリは公式仕様に存在しない（品質基準は `skills/<skill-name>/` 配下に置く）
+- `<agent-name>-rules/` `<agent-name>-rule-details/` のような top-level ディレクトリは作らず、すべて `skills/<skill-name>/` 配下に統合する
 
 ---
 
@@ -53,23 +57,27 @@
 {
   "name": "<agent-name>",
   "version": "0.1.0",
-  "description": "...",
-  "agents": ["agents/*.md"],
-  "skills": ["skills/*/SKILL.md"],
-  "commands": ["commands/*.md"],
-  "rules": ["rules/*.md"]
+  "description": "..."
 }
 ```
 
-### marketplace.json の形式
+**注意（公式仕様準拠）**:
+- 必須フィールドは `name` のみ（`version`/`description` は推奨）
+- `agents`/`skills`/`commands`/`hooks`/`mcpServers`/`lspServers` は **カスタムパスを使うときだけ** 宣言。空配列はデフォルト自動探索を SUPPRESS するため避ける
+- `rules` フィールドは **Claude Code 公式仕様に存在しない**。品質基準は `skills/<skill-name>/` 配下のサポートファイル（例: `standards.md`）に格納し SKILL.md から参照すること
+
+### marketplace.json は per-plugin で作らない
+
+公式仕様では `marketplace.json` は **マーケットプレイスレジストリリポジトリの root** に置く1ファイルであり、各プラグインの `.claude-plugin/` 内には置かない。プラグイン公開時は、レジストリ側 `.claude-plugin/marketplace.json` の `plugins[]` 配列に以下のようなエントリを追加する:
 
 ```json
 {
-  "displayName": "...",
+  "name": "<agent-name>",
+  "source": "./<agent-name>",
   "description": "...",
-  "tags": ["steering-policy", "..."],
-  "author": "...",
-  "autoUpdate": true
+  "version": "0.1.0",
+  "category": "...",
+  "tags": ["steering-policy", "..."]
 }
 ```
 
@@ -135,9 +143,9 @@ description: ...
 
 | 旧パス | 新パス |
 |--------|--------|
-| `.steering/aws-aidlc-rules/core-workflow.md` | `<agent>/rules/core-workflow.md` |
-| `.steering/aws-aidlc-rule-details/common/` | `<agent>/<agent>-rule-details/common/` |
-| `.steering/aws-aidlc-rule-details/<phase>/` | `<agent>/<agent>-rule-details/<phase>/` |
+| `.steering/aws-aidlc-rules/core-workflow.md` | `<agent>/skills/<skill-name>/core-workflow.md` |
+| `.steering/aws-aidlc-rule-details/common/` | `<agent>/skills/<skill-name>/rule-details/common/` |
+| `.steering/aws-aidlc-rule-details/<phase>/` | `<agent>/skills/<skill-name>/rule-details/<phase>/` |
 
 ---
 

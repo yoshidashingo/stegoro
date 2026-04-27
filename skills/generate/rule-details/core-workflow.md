@@ -647,16 +647,23 @@ The Steering Policy Maker classifies target agents into four types, which determ
 
 ```text
 <agent-name>/
-├── .claude-plugin/                         plugin.json + marketplace.json (PACKAGING)
-├── agents/                                 Specialist agent definitions (PACKAGING)
-├── skills/                                 Skill entry points — SKILL.md (PACKAGING)
-├── commands/                               Command definitions (PACKAGING)
-├── rules/                                  Quality standards rules (PACKAGING)
-├── <agent-name>-rules/
-│   └── core-workflow.md                    Master orchestrator
-└── <agent-name>-rule-details/
-    ├── common/                             Cross-phase rules (11 files)
-    └── <phase-N>/                          Phase-specific rules per stage
+├── .claude-plugin/
+│   └── plugin.json                         Plugin metadata (PACKAGING)
+├── agents/                                 Specialist agent definitions (PACKAGING, optional)
+├── commands/                               Command definitions (PACKAGING, optional)
+└── skills/
+    └── <skill-name>/
+        ├── SKILL.md                        Skill entry point (PACKAGING)
+        ├── core-workflow.md                Master orchestrator (GENERATION)
+        ├── standards.md                    Quality standards (PACKAGING, optional)
+        └── rule-details/
+            ├── common/                     Cross-phase rules (11 files)
+            └── <phase-N>/                  Phase-specific rules per stage
 ```
 
-**CRITICAL RULES**: All generated files go inside `<agent-name>/` directory (no dot prefix). Each target agent gets its own directory. Directories `.claude-plugin/`, `agents/`, `skills/`, `commands/`, `rules/` are added only in PACKAGING phase. All file references in core-workflow.md must resolve to actual files. Line limits: SKILL.md 75-150, core-workflow 200-600.
+**CRITICAL RULES**:
+- All generated files go inside `<agent-name>/` directory (no dot prefix). Each target agent gets its own directory.
+- `<agent-name>-rules/` and `<agent-name>-rule-details/` top-level directories are NOT used; everything lives under `skills/<skill-name>/`.
+- A top-level `rules/` directory is NOT a Claude Code component — quality standards live under `skills/<skill-name>/standards.md` referenced from SKILL.md.
+- `marketplace.json` is NOT generated per-plugin — registry entries live in a separate marketplace registry repo's root `.claude-plugin/marketplace.json`.
+- All file references in core-workflow.md must resolve to actual files. Line limits: SKILL.md 75-150, core-workflow 200-600.

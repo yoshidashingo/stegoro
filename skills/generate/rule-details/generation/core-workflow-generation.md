@@ -201,7 +201,7 @@ Generate (as applicable):
 #### Step 10: Write Core Workflow File
 **Action**: Write the validated core-workflow.md to disk
 **Input**: Validated content
-**Output**: `<agent-name>/<agent-name>-rules/core-workflow.md`
+**Output**: `<agent-name>/skills/<skill-name>/core-workflow.md`
 
 **CRITICAL**: Create the target directory structure first if it doesn't exist.
 
@@ -210,7 +210,7 @@ Generate (as applicable):
 ## Output Artifacts
 
 ### Core Workflow File
-- **File**: `<agent-name>/<agent-name>-rules/core-workflow.md`
+- **File**: `<agent-name>/skills/<skill-name>/core-workflow.md`
 - **Content**: Complete master orchestrator for the target agent
 - **Expected Size**: 200-500 lines depending on complexity
 
@@ -226,7 +226,7 @@ Generate (as applicable):
 
 **Core Workflow Generation is complete.** Here's what was produced:
 
-- **File**: `<agent-name>/<agent-name>-rules/core-workflow.md`
+- **File**: `<agent-name>/skills/<skill-name>/core-workflow.md`
 - **Line Count**: [N] lines
 - **Phases Documented**: [N]
 - **Stages Documented**: [N] (ALWAYS: [N], CONDITIONAL: [N])

@@ -417,9 +417,9 @@ Dimension scores:
 - **Verdict**: [APPROVED / CONDITIONAL APPROVAL]
 
 **Contents:**
-- Core Workflow: `[agent-name]-rules/core-workflow.md`
-- Common Rules: [N] files in `[agent-name]-rule-details/common/`
-- Phase Rules: [N] files across [N] phase directories
+- Core Workflow: `[agent-name]/skills/[skill-name]/core-workflow.md`
+- Common Rules: [N] files in `[agent-name]/skills/[skill-name]/rule-details/common/`
+- Phase Rules: [N] files across [N] phase directories in `[agent-name]/skills/[skill-name]/rule-details/`
 
 ### NEXT STEPS
 

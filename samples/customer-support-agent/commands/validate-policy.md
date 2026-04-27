@@ -1,3 +1,8 @@
+---
+name: validate-policy
+description: カスタマーサポートエージェントのポリシー検証。P2（Automated Validation）の3層テスト（構造・コンテンツ・スモーク）を実行する。
+---
+
 # コマンド: validate-policy（ポリシー品質検証）
 
 ## 概要

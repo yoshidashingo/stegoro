@@ -1,2 +1,5 @@
 # OMC runtime state — never commit agent execution artifacts
 .omc/
+
+# Test fixtures and working artifacts (not part of the published plugin)
+proposal-writer/test-rfps/

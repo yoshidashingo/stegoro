@@ -1,3 +1,8 @@
+---
+name: data-integrator
+description: Salesforce/Gmail/Calendar/Slackの4ソースデータ統合エージェント。差分収集・統合ビュー構築・矛盾検出・PII保護を担当する。
+---
+
 # Data Integrator Agent — 4ソースデータ統合
 
 ## 役割

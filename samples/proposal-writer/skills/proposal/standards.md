@@ -2,7 +2,7 @@
 
 ## 15次元品質基準
 
-提案書作成エージェントが維持すべき品質基準を定義する。詳細は `proposal-writer-rule-details/common/quality-standards.md` を参照。
+提案書作成エージェントが維持すべき品質基準を定義する。詳細は `rule-details/common/quality-standards.md` を参照。
 
 ## ドメイン固有品質ルール
 

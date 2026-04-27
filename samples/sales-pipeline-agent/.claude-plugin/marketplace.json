@@ -1,7 +1,0 @@
-{
-  "displayName": "Sales Pipeline Agent",
-  "description": "4ソース統合巡回型の営業パイプライン管理エージェント。日中1h巡回+夜間準備の自律型サイクルで、商談ヘルスモニタリング・アクション自動実行・日次サマリーを提供。",
-  "tags": ["steering-policy", "sales", "pipeline", "salesforce", "hybrid-agent", "crm"],
-  "author": "stegoro",
-  "autoUpdate": true
-}

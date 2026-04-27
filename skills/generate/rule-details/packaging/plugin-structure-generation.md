@@ -46,36 +46,41 @@ Generate the plugin metadata file:
 {
   "name": "<agent-name>",
   "version": "0.1.0",
-  "description": "<agent description from Purpose Analysis>",
-  "agents": ["agents/*.md"],
-  "skills": ["skills/*/SKILL.md"],
-  "commands": ["commands/*.md"],
-  "rules": ["rules/*.md"]
+  "description": "<agent description from Purpose Analysis>"
 }
 ```
 
-**Note**: Start with `0.1.0` for unreleased plugins; increment using semver (`0.x.y` → `1.0.0` for first stable release).
+**Notes**:
+- Start with `0.1.0` for unreleased plugins; increment using semver (`0.x.y` → `1.0.0` for first stable release)
+- **Do NOT** declare `agents`/`skills`/`commands`/`hooks`/`mcpServers`/`lspServers` arrays unless custom paths are needed — Claude Code auto-discovers default directories, and empty arrays SUPPRESS the default scan
+- **`rules` is NOT a valid plugin component** per the Claude Code spec. Quality standards must live inside `skills/<skill-name>/` as supporting files (e.g. `skills/<skill-name>/standards.md` referenced from SKILL.md) or in CLAUDE.md — never as a top-level `rules/` directory
 
 **Validation**:
-- [ ] All required fields present (name, version, description, agents, skills, commands)
-- [ ] Referenced paths will resolve after all files are generated
+- [ ] Required fields present (name, version, description)
+- [ ] No `rules` field (invalid in Claude Code spec)
+- [ ] No empty component arrays that would override auto-discovery
 - [ ] Version follows semantic versioning (default: `0.1.0`)
 
-#### 3b: marketplace.json
-Generate marketplace publication metadata (per-plugin format — placed inside the plugin directory):
+#### 3b: Marketplace registry entry (NOT a per-plugin file)
+
+**Do NOT generate `marketplace.json` inside the plugin directory.** Per the Claude Code spec, `marketplace.json` lives at the **root of a marketplace registry repository** as a single file containing `name`, `owner`, and `plugins[]`. There is no per-plugin marketplace.json concept.
+
+**To publish this plugin to a marketplace registry**, add an entry to that registry repo's `.claude-plugin/marketplace.json` `plugins[]` array:
 
 ```json
 {
-  "displayName": "<User-friendly agent name>",
+  "name": "<agent-name>",
+  "source": "./<agent-name>",
   "description": "<1-2 sentence description>",
+  "version": "0.1.0",
   "category": "<domain category, e.g. 'methodology', 'productivity', 'engineering'>",
-  "tags": ["steering-policy", "<domain-tag>"],
-  "author": "<author>",
-  "autoUpdate": true
+  "tags": ["steering-policy", "<domain-tag>"]
 }
 ```
 
-**Note**: This is the **per-plugin metadata** file, not the marketplace registry format. The marketplace registry (`plugins: []` array wrapping) lives in the publisher's separate marketplace repo. This `marketplace.json` describes the plugin itself.
+**Validation**:
+- [ ] No `marketplace.json` file is generated inside `<agent-name>/.claude-plugin/`
+- [ ] Registry entry (if applicable) added to the publisher's separate marketplace registry repo
 
 ### Step 4: Generate Agent Definitions
 
@@ -207,12 +212,16 @@ description: <one-line description>
 [What this command produces]
 ```
 
-### Step 7: Generate Rules File
+### Step 7: Generate Skill Supporting Files (Quality Standards)
 
-Generate `rules/<agent-name>-standards.md` for quality enforcement:
-- Reference to 15 quality dimensions
-- Domain-specific quality rules
-- File structure requirements
+Quality standards are NOT a top-level `rules/` directory (the `rules` plugin component does not exist in the Claude Code spec). Instead, generate supporting files **inside** the skill directory:
+
+- `skills/<skill-name>/standards.md` — Reference to 15 quality dimensions, domain-specific quality rules, file structure requirements
+- The SKILL.md must reference this file from its References section
+
+**Validation**:
+- [ ] No top-level `<agent-name>/rules/` directory exists
+- [ ] Quality standards live under `skills/<skill-name>/` and are referenced from SKILL.md
 
 ### Step 7b: Generate CLAUDE.md for Target Project
 
@@ -235,7 +244,7 @@ Generate a `CLAUDE.md` file for the target project repository. This file enforce
 
 ## エントリポイント
 
-`<agent-name>/<agent-name>-rules/core-workflow.md` を最初に読み込んで指示に従うこと。
+`<agent-name>/skills/<skill-name>/core-workflow.md` を最初に読み込んで指示に従うこと。
 
 ## 利用可能なツール
 
@@ -283,11 +292,17 @@ Claude Codeがファイル作成・編集・設定変更等を出力した場合
 - [ ] MCPサーバー表の備考欄に必要情報（スペースID・プロジェクトキー等）を記入済み
 - [ ] Red Teamレビュー適用範囲がこのエージェントの主要操作を網羅している
 
-### Step 8: Copy Rule Details
+### Step 8: Copy Rule Details Under the Skill Directory
 
-Copy improved rule-details files into the plugin structure:
-- `<agent-name>-rule-details/common/` ← from generated common rules
-- `<agent-name>-rule-details/<phase>/` ← from generated phase rules
+Copy improved rule-details files **inside** the skill directory (NOT at the top level):
+
+- `skills/<skill-name>/core-workflow.md` ← from generated core workflow
+- `skills/<skill-name>/rule-details/common/` ← from generated common rules
+- `skills/<skill-name>/rule-details/<phase>/` ← from generated phase rules
+
+**Why this structure**: Claude Code only auto-discovers `agents/`, `commands/`, and `skills/` (per plugin spec). Rule details must live as supporting files under a skill so SKILL.md references resolve and the rules ship with the plugin.
+
+**SKILL.md reference path adjustment**: References inside SKILL.md become `./core-workflow.md`, `./rule-details/common/...`, `./rule-details/<phase>/...` (no `../../<agent-name>-rule-details/`).
 
 ### Step 9: Validate Plugin Structure
 
@@ -308,8 +323,8 @@ Before presenting for approval, verify:
 
 ### Generated Plugin Structure
 - **Location**: `<agent-name>/`
-- **Files**: plugin.json, marketplace.json, agents/*.md, skills/*/SKILL.md, commands/*.md, rules/*.md
-- **Rule Details**: `<agent-name>-rule-details/` (copied from generation output)
+- **Files**: `.claude-plugin/plugin.json`, `agents/*.md` (optional), `commands/*.md` (optional), `skills/<skill-name>/SKILL.md`, `skills/<skill-name>/core-workflow.md`, `skills/<skill-name>/rule-details/**`
+- **Note**: No `marketplace.json` inside the plugin (registry entries live in a separate marketplace repo's root `.claude-plugin/marketplace.json`)
 
 ---
 

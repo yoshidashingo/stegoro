@@ -1,3 +1,8 @@
+---
+name: orchestrator
+description: 顧客サポート全体ワークフローのオーケストレーション。トリアージから品質検査・フォローアップまでのフェーズ間状態管理と分岐制御を担う。
+---
+
 # オーケストレーターエージェント
 
 ## 概要
@@ -13,11 +18,11 @@
 
 ## 参照ルール
 
-- `../customer-support-agent-rules/core-workflow.md` — ワークフロー全体定義
-- `../customer-support-agent-rule-details/triage/` — トリアージフェーズ（T1/T2/T3）
-- `../customer-support-agent-rule-details/response/` — レスポンスフェーズ（R1-R5）
-- `../customer-support-agent-rule-details/quality/` — 品質検査フェーズ（Q1-Q4）
-- `../customer-support-agent-rule-details/follow-up/` — フォローアップフェーズ（F1/F2）
+- `../skills/support/core-workflow.md` — ワークフロー全体定義
+- `../skills/support/rule-details/triage/` — トリアージフェーズ（T1/T2/T3）
+- `../skills/support/rule-details/response/` — レスポンスフェーズ（R1-R5）
+- `../skills/support/rule-details/quality/` — 品質検査フェーズ（Q1-Q4）
+- `../skills/support/rule-details/follow-up/` — フォローアップフェーズ（F1/F2）
 
 ## 動作原則
 

@@ -418,19 +418,19 @@ The next phase is **[Next Phase Name]**: [Brief description of what the next pha
 **The steering policy set for [Agent Name] has been generated and validated.**
 
 **Final Deliverables:**
-- Directory: `.[agent-name]/`
+- Directory: `[agent-name]/`
 - Total files: [N]
 - Total lines: [N]
 - Quality calibration: [X/15 dimensions PASS]
 
 **Contents:**
-- Core workflow: `[agent-name]-rules/core-workflow.md`
-- Common rules: [N] files in `[agent-name]-rule-details/common/`
-- Phase rules: [N] files across [N] phase directories
+- Core workflow: `[agent-name]/skills/[skill-name]/core-workflow.md`
+- Common rules: [N] files in `[agent-name]/skills/[skill-name]/rule-details/common/`
+- Phase rules: [N] files across [N] phase directories in `[agent-name]/skills/[skill-name]/rule-details/`
 
 ### NEXT STEPS
 
-1. Review the generated policy files in `.[agent-name]/`
+1. Review the generated policy files in `[agent-name]/`
 2. Test the workflow by running the target agent with a sample task
 3. Iterate on any rules that need adjustment
 
@@ -508,14 +508,15 @@ description: <one-line description>
 ```json
 {
   "name": "<agent-name>",
-  "version": "1.0.0",
-  "description": "...",
-  "agents": ["agents/*.md"],
-  "skills": ["skills/*/SKILL.md"],
-  "commands": ["commands/*.md"],
-  "rules": ["rules/*.md"]
+  "version": "0.1.0",
+  "description": "..."
 }
 ```
+
+**Notes (Claude Code spec compliance)**:
+- Required field is `name` only (`version`/`description` recommended)
+- Component arrays (`agents`/`skills`/`commands`/`hooks`/`mcpServers`/`lspServers`) only when custom paths needed; empty arrays SUPPRESS default auto-discovery
+- `rules` is NOT a Claude Code component — quality standards belong inside `skills/<skill-name>/` as supporting files referenced from SKILL.md, not as a top-level `rules/` directory
 
 ### Agent Definition Pattern
 

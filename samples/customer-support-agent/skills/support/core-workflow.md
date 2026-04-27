@@ -12,7 +12,7 @@ The AI model intelligently assesses what is needed based on:
 5. SLA remaining time
 
 ## MANDATORY: Rule Details Loading
-**CRITICAL**: When performing any phase, you MUST read and use relevant content from rule detail files in `customer-support-agent-rule-details/` directory.
+**CRITICAL**: When performing any phase, you MUST read and use relevant content from rule detail files in `rule-details/` directory.
 
 **Common Rules**: ALWAYS load at workflow start:
 - Load `common/welcome-message.md` for agent introduction
@@ -331,14 +331,21 @@ FAIL / Gap detected
 ## Generated Output Directory Structure
 
 ```text
-.customer-support-agent/
-├── customer-support-agent-rules/
-│   └── core-workflow.md
-└── customer-support-agent-rule-details/
-    ├── common/                    (12 files)
-    ├── triage/                    (3 files)
-    ├── response/                  (5 files)
-    ├── quality/                   (4 files)
-    ├── follow-up/                 (2 files)
-    └── packaging/                 (2 files)
+customer-support-agent/
+├── .claude-plugin/
+│   └── plugin.json
+├── agents/                                (orchestrator, quality-reviewer)
+├── commands/                              (new-ticket, resume-ticket, validate-policy)
+└── skills/
+    └── support/
+        ├── SKILL.md
+        ├── core-workflow.md
+        ├── standards.md
+        └── rule-details/
+            ├── common/                    (12 files)
+            ├── triage/                    (3 files)
+            ├── response/                  (5 files)
+            ├── quality/                   (4 files)
+            ├── follow-up/                 (2 files)
+            └── packaging/                 (2 files)
 ```

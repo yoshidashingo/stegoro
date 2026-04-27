@@ -1,3 +1,8 @@
+---
+name: quality-reviewer
+description: 顧客対応の品質検査エージェント。Q1〜Q4（PIIスキャン・コンテンツレビュー・トーンキャリブレーション・ディスパッチ）を担当し、すべての出力が安全かつ正確であることを保証する。
+---
+
 # 品質検証エージェント
 
 ## 概要
@@ -13,12 +18,12 @@
 
 ## 参照ルール
 
-- `../customer-support-agent-rule-details/quality/pii-scan.md` — Q1
-- `../customer-support-agent-rule-details/quality/content-review.md` — Q2
-- `../customer-support-agent-rule-details/quality/tone-calibration.md` — Q3
-- `../customer-support-agent-rule-details/quality/dispatch.md` — Q4
-- `../customer-support-agent-rule-details/common/tone-guidelines.md` — トーンマトリクス
-- `../customer-support-agent-rule-details/common/content-validation.md` — 禁止表現リスト
+- `../skills/support/rule-details/quality/pii-scan.md` — Q1
+- `../skills/support/rule-details/quality/content-review.md` — Q2
+- `../skills/support/rule-details/quality/tone-calibration.md` — Q3
+- `../skills/support/rule-details/quality/dispatch.md` — Q4
+- `../skills/support/rule-details/common/tone-guidelines.md` — トーンマトリクス
+- `../skills/support/rule-details/common/content-validation.md` — 禁止表現リスト
 
 ## 品質ゲート（CP-5）
 

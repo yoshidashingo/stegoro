@@ -138,30 +138,37 @@ Select quality level based on:
 
 ```
 <agent-name>/
-├── <agent-name>-rules/
-│   └── core-workflow.md
-└── <agent-name>-rule-details/
-    ├── common/
-    │   ├── welcome-message.md
-    │   ├── process-overview.md
-    │   ├── question-format-guide.md
-    │   ├── content-validation.md
-    │   ├── session-continuity.md
-    │   ├── error-handling.md
-    │   ├── overconfidence-prevention.md
-    │   ├── terminology.md
-    │   ├── quality-standards.md
-    │   ├── output-structure-patterns.md
-    │   └── [domain-specific-common-rules...]
-    ├── <phase-1-name>/
-    │   ├── <stage-1>.md
-    │   ├── <stage-2>.md
-    │   └── ...
-    ├── <phase-2-name>/
-    │   ├── <stage-1>.md
-    │   └── ...
-    └── <phase-N-name>/
-        └── ...
+├── .claude-plugin/
+│   └── plugin.json
+├── agents/                  (optional, PACKAGING)
+├── commands/                (optional, PACKAGING)
+└── skills/
+    └── <skill-name>/
+        ├── SKILL.md         (PACKAGING)
+        ├── core-workflow.md
+        ├── standards.md     (optional, PACKAGING)
+        └── rule-details/
+            ├── common/
+            │   ├── welcome-message.md
+            │   ├── process-overview.md
+            │   ├── question-format-guide.md
+            │   ├── content-validation.md
+            │   ├── session-continuity.md
+            │   ├── error-handling.md
+            │   ├── overconfidence-prevention.md
+            │   ├── terminology.md
+            │   ├── quality-standards.md
+            │   ├── output-structure-patterns.md
+            │   └── [domain-specific-common-rules...]
+            ├── <phase-1-name>/
+            │   ├── <stage-1>.md
+            │   ├── <stage-2>.md
+            │   └── ...
+            ├── <phase-2-name>/
+            │   ├── <stage-1>.md
+            │   └── ...
+            └── <phase-N-name>/
+                └── ...
 ```
 
 ### Step 7: Compile Scope Summary

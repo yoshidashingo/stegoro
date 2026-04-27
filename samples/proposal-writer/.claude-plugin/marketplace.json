@@ -1,7 +1,0 @@
-{
-  "displayName": "Proposal Writer",
-  "description": "RFP対応提案書作成エージェント。コンプライアンスチェック・技術提案・価格設計まで一貫してサポート。",
-  "tags": ["steering-policy", "proposal", "rfp", "sales"],
-  "author": "stegoro",
-  "autoUpdate": true
-}

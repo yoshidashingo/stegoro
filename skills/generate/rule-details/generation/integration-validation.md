@@ -345,9 +345,9 @@ Please choose one of the following:
 **All stages in the GENERATION phase are complete.**
 
 **Summary of outputs:**
-- Core Workflow: `.<agent-name>/<agent-name>-rules/core-workflow.md` ([N] lines)
-- Common Rules: [N] files in `common/` ([N] total lines)
-- Phase Rules: [N] files across [N] phases ([N] total lines)
+- Core Workflow: `<agent-name>/skills/<skill-name>/core-workflow.md` ([N] lines)
+- Common Rules: [N] files in `<agent-name>/skills/<skill-name>/rule-details/common/` ([N] total lines)
+- Phase Rules: [N] files across [N] phases in `<agent-name>/skills/<skill-name>/rule-details/<phase>/` ([N] total lines)
 - Integration Validation: [PASS/FAIL]
 
 **Total Generated**: [N] files, [N] lines
