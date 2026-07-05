@@ -64,7 +64,7 @@ skills/                          # Claude Codeスキル
         └── refinement/          # 精緻化フェーズ
 
 steering-docs/                   # ポリシー生成時の作業ドキュメント
-.claude/rules/                   # Claude Code ルーティングルール
+.claude/rules/                   # Claude Code ルール（ルーティング、プロンプティング指針）
 ```
 
 ## Red Teamレビュー（必須）
@@ -103,6 +103,12 @@ AI-DLCワークフローでレビューが必要な成果物を作成・改善�
 - 既存ファイルの軽微な修正（typo修正、フォーマット統一等）はレビュー不要
 - ユーザーが明示的にレビュースキップを指示した場合
 
+## プロンプティング指針
+
+Claude (Fable 5) での作業スタイルは以下の指針に従うこと。既存のルーティングルール・承認ゲート・Red Teamレビューが優先される。
+
+@.claude/rules/fable-prompting.md
+
 ## 言語
 
-日本語で応答してくだ���い。
+日本語で応答してください。
