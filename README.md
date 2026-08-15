@@ -1,3 +1,5 @@
+
+
 <p align="center">
   <img src="docs/assets/logo.png" alt="stegoro logo" width="160">
 </p>
@@ -120,7 +122,7 @@ Add the marketplace and install the plugin (one-time setup):
 
 ```bash
 /plugin marketplace add yoshidashingo/stegoro
-/plugin install stegoro@stegoro
+/plugin install stegoro@0.1.0
 ```
 
 ### Usage
